@@ -70,6 +70,8 @@ const $option= $('<option value="selectColor" selected>Please select a T-shirt t
 //prepend $option
 $('#color').prepend($option);
 
+
+
 /*
 Until a theme is selected from the “Design” menu, no color options appear in the “Color” drop down and the “Color” field reads “Please select a T-shirt theme”.
 
@@ -83,7 +85,7 @@ let designChosen = false;
 //if user interacts with Design drop down menu -> trigger elements on Color drop down menu. 
 $('#design').change(function() {
     if($(this).val() ==="js puns"){
-        //TODO: “Color” field should be updated. use selected somehow...
+
         $('#color option:eq(1)').prop('selected', true); 
         
         //user has selected a design
@@ -96,6 +98,8 @@ $('#design').change(function() {
         tomato.hide();
         steelBlue.hide();
         dimGrey.hide();
+        
+        $option.hide();
         
     }
     else if($(this).val() ==="heart js"){
@@ -113,10 +117,15 @@ $('#design').change(function() {
         cornFlowerBlue.hide();
         darkSlateGrey.hide();
         gold.hide();
+        
+        $option.hide();
     }
     
     //the user selects "select theme" -> hide everything and display on Color menu "Please select a T-shirt theme"
     else {
+        
+        designChosen = false;
+        
         tomato.hide();
         steelBlue.hide();
         dimGrey.hide();
@@ -125,13 +134,17 @@ $('#design').change(function() {
         darkSlateGrey.hide();
         gold.hide();
         
+        
         //display on Color menu "Please select a T-shirt theme"
-        $('#color option:eq(0)').prop('selected', true);
+        //$('#color option:eq(0)').prop('selected', true);
+        //lets use our variable instead:
+        $option.show();
+        $($option).prop('selected', true);
     }
     
 });
 
-//if design drop down hasn't been interacted with -> just show “Please select a T-shirt theme” on Color drop down menu.
+//if design drop down menu is on "Select Theme" -> just show “Please select a T-shirt theme” on Color drop down menu.
 if(!designChosen){
         tomato.hide();
         steelBlue.hide();
@@ -141,4 +154,5 @@ if(!designChosen){
         darkSlateGrey.hide();
         gold.hide();
     
+        $option.show();
 }
