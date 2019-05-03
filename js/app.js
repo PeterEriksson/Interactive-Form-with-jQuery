@@ -175,3 +175,19 @@ When a user unchecks an activity, make sure that competing activities (if there 
 As a user selects activities, a running total should display below the list of checkboxes. For example, if the user selects "Main Conference", then Total: $200 should appear. If they add 1 workshop, the total should change to Total: $300.
 */
 
+//visually indicate that the workshop in the competing time slot isn't available -> lets create an element 'flashMessage' for this
+
+const $flashMessageTimeSlot = $('<div id="flashMessage">The workshop in the competing time slot is not available </div>'); 
+$('.container').prepend($flashMessageTimeSlot);
+
+$flashMessageTimeSlot.css({color: 'white',backgroundColor: 'red'});
+//$flashMessageTimeSlot.css({backgroundColor: 'red'});
+$flashMessageTimeSlot.css({fontSize: 40});
+
+
+$flashMessageTimeSlot.hide();
+//$flashMessageTimeSlot.show(3000);
+$flashMessageTimeSlot.slideDown(2000);
+//ok
+
+
