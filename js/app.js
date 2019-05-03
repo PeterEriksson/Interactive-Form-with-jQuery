@@ -50,7 +50,7 @@ const jsPuns = $('#design option:eq(1)'); //grabs js puns
 
 //heart js
 const heartJS = $('#design option:eq(2)');
-//heartJS.hide(); //works
+//heartJS.hide(); //works //but dont need them now.
 
 //Grab all different colors:
 const cornFlowerBlue = $('#color option:eq(0)');
@@ -69,6 +69,7 @@ const $option= $('<option value="selectColor" selected>Please select a T-shirt t
 
 //prepend $option
 $('#color').prepend($option);
+//New place for this element is :eq(0). CornFlowerBlue moves up to eq(1)
 
 
 
@@ -79,8 +80,11 @@ When a new theme is selected from the "Design" menu, the "Color" field and drop 
 */
 
 
-//the user hasn't selected a design yet.
-let designChosen = false;
+
+
+//exceeds expectations:
+//“Color” drop down menu is hidden until a T-Shirt design is selected.
+ $('#color').hide();
 
 //if user interacts with Design drop down menu -> trigger elements on Color drop down menu. 
 $('#design').change(function() {
@@ -88,8 +92,6 @@ $('#design').change(function() {
 
         $('#color option:eq(1)').prop('selected', true); 
         
-        //user has selected a design
-        designChosen = true;
         
         cornFlowerBlue.show();
         darkSlateGrey.show();
@@ -101,14 +103,18 @@ $('#design').change(function() {
         
         $option.hide();
         
+        
+        //exceeds expectations:
+        //“Color” drop down menu is hidden until a T-Shirt design is selected.
+        $('#color').show(300);
+        
+        
     }
     else if($(this).val() ==="heart js"){
         
         //“Color” field should be updated
         $('#color option:eq(4)').prop('selected', true);
         
-        //user has selected a design
-        designChosen = true;
         
         tomato.show();
         steelBlue.show();
@@ -119,13 +125,15 @@ $('#design').change(function() {
         gold.hide();
         
         $option.hide();
+        
+        //exceeds expectations:
+        //“Color” drop down menu is hidden until a T-Shirt design is selected.
+        $('#color').show(300);
     }
     
     //the user selects "select theme" -> hide everything and display on Color menu "Please select a T-shirt theme"
     else {
-        
-        designChosen = false;
-        
+                
         tomato.hide();
         steelBlue.hide();
         dimGrey.hide();
@@ -145,14 +153,25 @@ $('#design').change(function() {
 });
 
 //if design drop down menu is on "Select Theme" -> just show “Please select a T-shirt theme” on Color drop down menu.
-if(!designChosen){
-        tomato.hide();
-        steelBlue.hide();
-        dimGrey.hide();
+//if(!designChosen){
+//        tomato.hide();
+//        steelBlue.hide();
+//        dimGrey.hide();
+//
+//        cornFlowerBlue.hide();
+//        darkSlateGrey.hide();
+//        gold.hide();
+//    
+//        $option.show();
+//    
+//       
+//}
+//TODO: this has no use. Delete.
 
-        cornFlowerBlue.hide();
-        darkSlateGrey.hide();
-        gold.hide();
-    
-        $option.show();
-}
+/*
+”Register for Activities” section
+Some events are at the same day and time as others. If the user selects a workshop, don't allow selection of a workshop at the same day and time -- you should disable the checkbox and visually indicate that the workshop in the competing time slot isn't available.
+When a user unchecks an activity, make sure that competing activities (if there are any) are no longer disabled.
+As a user selects activities, a running total should display below the list of checkboxes. For example, if the user selects "Main Conference", then Total: $200 should appear. If they add 1 workshop, the total should change to Total: $300.
+*/
+
