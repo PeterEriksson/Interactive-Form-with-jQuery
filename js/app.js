@@ -172,6 +172,7 @@ $('#design').change(function() {
 ”Register for Activities” section
 Some events are at the same day and time as others. If the user selects a workshop, don't allow selection of a workshop at the same day and time -- you should disable the checkbox and visually indicate that the workshop in the competing time slot isn't available.
 When a user unchecks an activity, make sure that competing activities (if there are any) are no longer disabled.
+
 As a user selects activities, a running total should display below the list of checkboxes. For example, if the user selects "Main Conference", then Total: $200 should appear. If they add 1 workshop, the total should change to Total: $300.
 */
 
@@ -187,7 +188,40 @@ $flashMessageTimeSlot.css({fontSize: 40});
 
 $flashMessageTimeSlot.hide();
 //$flashMessageTimeSlot.show(3000);
-$flashMessageTimeSlot.slideDown(2000);
+//$flashMessageTimeSlot.slideDown(2000);
 //ok
+
+
+//<input type="checkbox" id="sName" name= "Male" style="width: 25px" value="male" disabled="disabled"/>Male
+
+//Now on the click of a button, toggle between disabled and enabled checkbox:
+
+//$("#button1").click(function() {
+  // $("#sName").attr('disabled', !$("#sName").attr('disabled'));
+//}); 
+
+
+//Select all the checkboxes and test. //Works.
+const $checkboxAll = $('input[name=all]').parent();
+//$checkboxAll.hide();
+
+const $checkboxJsFrameworks = $checkboxAll.next();
+//$checkboxJsFrameworks.hide();
+
+const $checkboxJsLibraries = $checkboxJsFrameworks.next();
+//$checkboxJsLibraries.hide();
+
+const $checkboxExpress = $checkboxJsLibraries.next();
+//$checkboxExpress.hide();
+
+const $checkboxNodeJs = $checkboxExpress.next();
+//$checkboxNodeJs.hide();
+
+const $checkboxBuildTools = $checkboxNodeJs.next();
+//$checkboxBuildTools.hide();
+
+const $checkboxNpm =  $checkboxBuildTools.next();
+//$checkboxNpm.hide();
+
 
 
