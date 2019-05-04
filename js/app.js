@@ -197,6 +197,7 @@ const $AllLabel = $('input[name=all]').parent(); //this gets both label AND chec
 const $checkboxJsFrameworks = $('input[name=js-frameworks]');
 //$($checkboxJsFrameworks).prop('disabled', true); //works
 const $jsFrameworksLabel = $AllLabel.next(); //we can use .text() to get text of label
+//console.log($jsFrameworksLabel.text());
 
 const $checkboxJsLibraries = $('input[name=js-libs]');
 const $jsLibrariesLabel = $jsFrameworksLabel.next();
@@ -213,6 +214,24 @@ const $buildToolsLabel = $nodeJsLabel.next();
 const $checkboxNpm = $('input[name=npm]');
 const $npmLabel = $buildToolsLabel.next();
 
+
+
+//visually indicate that the workshop in the competing time slot isn't available -> lets create an element 'flashMessage' for this
+/*
+const $flashMessageTimeSlot = $('<div id="flashMessage">This workshop is no longer possible to choose: </div>'); 
+//$('.container').prepend($flashMessageTimeSlot);
+$('.activities').prepend($flashMessageTimeSlot);
+
+$flashMessageTimeSlot.css({color: 'white',backgroundColor: 'red',fontSize: 30});
+$flashMessageTimeSlot.hide();
+$flashMessageTimeSlot.slideDown(2000);
+$flashMessageTimeSlot.delay(2000)
+$flashMessageTimeSlot.slideUp(1000);
+*/
+
+
+
+
 //If the user selects a workshop....
 //if users selects JavaScript Frameworks Workshop — Tuesday 9am-12pm, $100
 
@@ -223,12 +242,13 @@ $($checkboxJsFrameworks).change(function() {
 //        }
     if(($checkboxJsFrameworks).is(':checked')){
         $checkboxExpress.attr('disabled', true);
+        
+        
     }
     else{
         $checkboxExpress.attr('disabled', false);
     }
 
-    
 });
 //Works.
 
@@ -247,22 +267,8 @@ $($checkboxExpress).change(function() {
 });
 //Works.
 
-//TODO: now fix flashMessage.
-//visually indicate that the workshop in the competing time slot isn't available -> lets create an element 'flashMessage' for this
-
-const $flashMessageTimeSlot = $('<div id="flashMessage">The workshop in the competing time slot is not available </div>'); 
-//$('.container').prepend($flashMessageTimeSlot);
-$('.shirt').append($flashMessageTimeSlot);
-
-$flashMessageTimeSlot.css({color: 'white',backgroundColor: 'red',fontSize: 30});
-$flashMessageTimeSlot.hide();
-$flashMessageTimeSlot.slideDown(2000);
-$flashMessageTimeSlot.delay(2000)
-$flashMessageTimeSlot.slideUp(1000);
 
 //TODO: display flashmessage with excerpt from text()
-
-
-
+//TODO: Do alert instead.
 
 
