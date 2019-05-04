@@ -176,29 +176,11 @@ When a user unchecks an activity, make sure that competing activities (if there 
 As a user selects activities, a running total should display below the list of checkboxes. For example, if the user selects "Main Conference", then Total: $200 should appear. If they add 1 workshop, the total should change to Total: $300.
 */
 
-//visually indicate that the workshop in the competing time slot isn't available -> lets create an element 'flashMessage' for this
-
-const $flashMessageTimeSlot = $('<div id="flashMessage">The workshop in the competing time slot is not available </div>'); 
-$('.container').prepend($flashMessageTimeSlot);
-
-$flashMessageTimeSlot.css({color: 'white',backgroundColor: 'red'});
-//$flashMessageTimeSlot.css({backgroundColor: 'red'});
-$flashMessageTimeSlot.css({fontSize: 40});
 
 
-$flashMessageTimeSlot.hide();
-//$flashMessageTimeSlot.show(3000);
-//$flashMessageTimeSlot.slideDown(2000);
-//ok
 
 
-//<input type="checkbox" id="sName" name= "Male" style="width: 25px" value="male" disabled="disabled"/>Male
 
-//Now on the click of a button, toggle between disabled and enabled checkbox:
-
-//$("#button1").click(function() {
-  // $("#sName").attr('disabled', !$("#sName").attr('disabled'));
-//}); 
 
 
 /*
@@ -207,23 +189,29 @@ $('#someid').removeProp('disabled');
 */
 
 
-//Select all the checkboxes and test. //Works.
-//const $checkboxAll = $('input[name=all]').parent(); //this gets both label AND checkbox
+
 const $checkboxAll = $('input[name=all]');
+const $AllLabel = $('input[name=all]').parent(); //this gets both label AND checkbox
 //$($checkboxAll).prop('disabled', true); //works
 
 const $checkboxJsFrameworks = $('input[name=js-frameworks]');
 //$($checkboxJsFrameworks).prop('disabled', true); //works
+const $jsFrameworksLabel = $AllLabel.next(); //we can use .text() to get text of label
 
 const $checkboxJsLibraries = $('input[name=js-libs]');
+const $jsLibrariesLabel = $jsFrameworksLabel.next();
 
 const $checkboxExpress = $('input[name=express]');
+const $expressLabel = $jsLibrariesLabel.next();
 
 const $checkboxNodeJs = $('input[name=node]');
+const $nodeJsLabel = $expressLabel.next();
 
 const $checkboxBuildTools = $('input[name=build-tools]');
+const $buildToolsLabel = $nodeJsLabel.next();
 
 const $checkboxNpm = $('input[name=npm]');
+const $npmLabel = $buildToolsLabel.next();
 
 //If the user selects a workshop....
 //if users selects JavaScript Frameworks Workshop — Tuesday 9am-12pm, $100
@@ -260,4 +248,21 @@ $($checkboxExpress).change(function() {
 //Works.
 
 //TODO: now fix flashMessage.
+//visually indicate that the workshop in the competing time slot isn't available -> lets create an element 'flashMessage' for this
+
+const $flashMessageTimeSlot = $('<div id="flashMessage">The workshop in the competing time slot is not available </div>'); 
+//$('.container').prepend($flashMessageTimeSlot);
+$('.shirt').append($flashMessageTimeSlot);
+
+$flashMessageTimeSlot.css({color: 'white',backgroundColor: 'red',fontSize: 30});
+$flashMessageTimeSlot.hide();
+$flashMessageTimeSlot.slideDown(2000);
+$flashMessageTimeSlot.delay(2000)
+$flashMessageTimeSlot.slideUp(1000);
+
+//TODO: display flashmessage with excerpt from text()
+
+
+
+
 
