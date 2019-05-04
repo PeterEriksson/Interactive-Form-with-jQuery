@@ -201,27 +201,63 @@ $flashMessageTimeSlot.hide();
 //}); 
 
 
+/*
+to remove 'disabled', use  removeProp()
+$('#someid').removeProp('disabled');
+*/
+
+
 //Select all the checkboxes and test. //Works.
-const $checkboxAll = $('input[name=all]').parent();
-//$checkboxAll.hide();
+//const $checkboxAll = $('input[name=all]').parent(); //this gets both label AND checkbox
+const $checkboxAll = $('input[name=all]');
+//$($checkboxAll).prop('disabled', true); //works
 
-const $checkboxJsFrameworks = $checkboxAll.next();
-//$checkboxJsFrameworks.hide();
+const $checkboxJsFrameworks = $('input[name=js-frameworks]');
+//$($checkboxJsFrameworks).prop('disabled', true); //works
 
-const $checkboxJsLibraries = $checkboxJsFrameworks.next();
-//$checkboxJsLibraries.hide();
+const $checkboxJsLibraries = $('input[name=js-libs]');
 
-const $checkboxExpress = $checkboxJsLibraries.next();
-//$checkboxExpress.hide();
+const $checkboxExpress = $('input[name=express]');
 
-const $checkboxNodeJs = $checkboxExpress.next();
-//$checkboxNodeJs.hide();
+const $checkboxNodeJs = $('input[name=node]');
 
-const $checkboxBuildTools = $checkboxNodeJs.next();
-//$checkboxBuildTools.hide();
+const $checkboxBuildTools = $('input[name=build-tools]');
 
-const $checkboxNpm =  $checkboxBuildTools.next();
-//$checkboxNpm.hide();
+const $checkboxNpm = $('input[name=npm]');
 
+//If the user selects a workshop....
+//if users selects JavaScript Frameworks Workshop — Tuesday 9am-12pm, $100
 
+//https://www.techcoil.com/blog/how-to-use-jquery-to-detect-user-checking-and-unchecking-a-checkbox/
+$($checkboxJsFrameworks).change(function() {
+//    if($($checkboxJsFrameworks).attr('checked', false)){
+//        $($checkboxExpress).attr('disabled', true); 
+//        }
+    if(($checkboxJsFrameworks).is(':checked')){
+        $checkboxExpress.attr('disabled', true);
+    }
+    else{
+        $checkboxExpress.attr('disabled', false);
+    }
+
+    
+});
+//Works.
+
+$($checkboxExpress).change(function() {
+//    if($($checkboxJsFrameworks).attr('checked', false)){
+//        $($checkboxExpress).attr('disabled', true); 
+//        }
+    if(($checkboxExpress).is(':checked')){
+        $checkboxJsFrameworks.attr('disabled', true);
+    }
+    else{
+        $checkboxJsFrameworks.attr('disabled', false);
+    }
+
+    
+});
+//Works.
+
+//TODO: now fix flashMessage.
 
