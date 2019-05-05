@@ -152,21 +152,6 @@ $('#design').change(function() {
     
 });
 
-//if design drop down menu is on "Select Theme" -> just show “Please select a T-shirt theme” on Color drop down menu.
-//if(!designChosen){
-//        tomato.hide();
-//        steelBlue.hide();
-//        dimGrey.hide();
-//
-//        cornFlowerBlue.hide();
-//        darkSlateGrey.hide();
-//        gold.hide();
-//    
-//        $option.show();
-//    
-//       
-//}
-//TODO: this has no use. Delete.
 
 /*
 ”Register for Activities” section
@@ -176,17 +161,6 @@ When a user unchecks an activity, make sure that competing activities (if there 
 As a user selects activities, a running total should display below the list of checkboxes. For example, if the user selects "Main Conference", then Total: $200 should appear. If they add 1 workshop, the total should change to Total: $300.
 */
 
-
-
-
-
-
-
-
-/*
-to remove 'disabled', use  removeProp()
-$('#someid').removeProp('disabled');
-*/
 
 
 
@@ -257,7 +231,6 @@ $flashMessageTimeSlot2.hide();
 //https://www.techcoil.com/blog/how-to-use-jquery-to-detect-user-checking-and-unchecking-a-checkbox/
 
 
-//TODO: 3 more checkboxes to add .change to.
 
 
 $($checkboxJsFrameworks).change(function() {
@@ -431,10 +404,90 @@ $($checkboxNpm).change(function(){
 });
 
 
-//TODO: As a user selects activities, a running total should display below the list of checkboxes. For example, if the user selects "Main Conference", then Total: $200 should appear. If they add 1 workshop, the total should change to Total: $300.
 
-//add a variable to keep track of total cost. If that variable is > 0 then show ...some sort of element. 
-//TODO: Add change functions for all boxes. Don't need flashmessages for these, but calculating cost is required.
+/*
+"Payment Info" section
+Display payment sections based on the payment option chosen in the select menu.
+
+The "Credit Card" payment option should be selected by default. Display the #credit-card div, and hide the "PayPal" and "Bitcoin" information. Payment option in the select menu should match the payment option displayed on the page.
+
+When a user selects the "PayPal" payment option, the PayPal information should display, and the credit card and “Bitcoin” information should be hidden.
+
+When a user selects the "Bitcoin" payment option, the Bitcoin information should display, and the credit card and “PayPal” information should be hidden.
+
+NOTE: The user should not be able to select the "Select Payment Method" option from the payment select menu, because the user should not be able to submit the form without a chosen payment option.
+*/
+
+//Grab hold of credit card option (and bitcoin and paypal) in payment select. 
+const $creditCardOption = $('#payment option:eq(1)');
+const $paypalOption = $('#payment option:eq(2)');
+const $bitcoinOption = $('#payment option:eq(3)');
+
+//: Grab hold of Cardnumber, Zip Code, CVV, Exp date, Exp year. Hide all of this info when paypal or bitcoin is selected. All of these elements are wrapped in a div:
+const creditCardDiv = $("#credit-card");
+
+//Hide the option "Select Payment Method"
+$('#payment option:eq(0)').hide();
+
+//Make credit card selected by default.
+$creditCardOption.prop('selected', true);
+
+//Grab hold of the "PayPal" and "Bitcoin" information. Hide them.
+const paypalDiv = $("p:eq(0)");
+paypalDiv.hide();
+const bitcoinDiv = $("p:eq(1)");
+bitcoinDiv.hide();
+
+//We select an option in select id payment, the option is Paypal:
+$('#payment').change(function(){
+    if($(this).val() ==="paypal"){
+        paypalDiv.show();
+        bitcoinDiv.hide();
+        creditCardDiv.hide();
+    }
+    
+});
+
+//We select an option in select id payment, the option is bitcoin:
+
+$('#payment').change(function(){
+    if($(this).val() ==="bitcoin"){
+        bitcoinDiv.show();
+        paypalDiv.hide();
+        creditCardDiv.hide();
+    }
+    
+});
+
+$('#payment').change(function(){
+    if($(this).val() ==="credit card"){
+        creditCardDiv.show();
+        bitcoinDiv.show();
+        paypalDiv.hide();
+    }
+    
+});
+
+/* TODO
+Form validation
+
+If any of the following validation errors exist, prevent the user from submitting the form:
+-Name field can't be blank.
+
+-Email field must be a validly formatted e-mail address (you don't have to check that it's a real e-mail address, just that it's formatted like one: dave@teamtreehouse.com for example.
+
+-User must select at least one checkbox under the "Register for Activities" section of the form.
+
+-If the selected payment option is "Credit Card," make sure the user has supplied a Credit Card number, a Zip Code, and a 3 number CVV value before the form can be submitted.
+    -Credit Card field should only accept a number between 13 and 16 digits.
+    -The Zip Code field should accept a 5-digit number.
+    -The CVV should only accept a number that is exactly 3 digits long.
+    
+NOTE: Don't rely on the built in HTML5 validation by adding the required attribute to your DOM elements. You need to actually create your own custom validation checks and error messages.
+
+NOTE: Avoid using snippets or plugins for this project. To get the most out of the experience, you should be writing all of your own code for your own custom validation.
+
+NOTE: Make sure your validation is only validating Credit Card info if Credit Card is the selected payment method.
 
 
-
+*/
