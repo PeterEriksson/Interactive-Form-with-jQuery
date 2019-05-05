@@ -270,6 +270,53 @@ $($checkboxExpress).change(function() {
 
     
 });
+
+
+
+//"copy"
+$($checkboxJsLibraries).change(function() {
+//    if($($checkboxJsFrameworks).attr('checked', false)){
+//        $($checkboxExpress).attr('disabled', true); 
+//        }
+    if(($checkboxJsLibraries).is(':checked')){
+        $checkboxNodeJs.attr('disabled', true);
+        
+        alert($flashMessageTimeSlot.text()+$nodeJsLabel.text());
+        
+    }
+    else{
+        $checkboxNodeJs.attr('disabled', false);
+        
+    }
+
+});
+
+
+$($checkboxNodeJs).change(function() {
+//    if($($checkboxJsFrameworks).attr('checked', false)){
+//        $($checkboxExpress).attr('disabled', true); 
+//        }
+    if(($checkboxNodeJs).is(':checked')){
+        $checkboxJsLibraries.attr('disabled', true);
+        alert($flashMessageTimeSlot.text()+$jsLibrariesLabel.text());
+
+        
+    }
+    else{
+        $checkboxJsLibraries.attr('disabled', false);
+    }
+
+    
+});
+
+
+
+
+
+
+
+
+
 //Works.
 
 
