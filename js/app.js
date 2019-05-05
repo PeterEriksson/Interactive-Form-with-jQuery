@@ -216,31 +216,28 @@ const $npmLabel = $buildToolsLabel.next();
 
 
 
-//visually indicate that the workshop in the competing time slot isn't available -> lets create an element 'flashMessage' for this
+//Visually indicate that the workshop in the competing time slot isn't available -> lets create an element 'flashMessage' for this
 
+//Keeps track on Tuesday 9am-12pm
 const $flashMessageTimeSlot = $('<div id="flashMessage">This workshop is no longer possible to choose: </div>'); 
-//$('.container').prepend($flashMessageTimeSlot);
-//TODO: If we will not use this solution then we can just put $flashMessage into a simple string and so we won't have to call text().
+
+
+//Keeps track on Tuesday 1pm-4pm
 const $flashMessageTimeSlot2 = $('<div id="flashMessage">This workshop is no longer possible to choose: </div>'); 
 
 $('.activities').prepend($flashMessageTimeSlot);
 $('.activities').prepend($flashMessageTimeSlot2);
 
-$flashMessageTimeSlot.css({color: 'white',backgroundColor: 'red',fontSize: 30});
+$flashMessageTimeSlot.css({color: 'white',backgroundColor: 'red',fontSize: 30,"border-radius":"7px","border-style": "ridge"});
 $flashMessageTimeSlot.hide();
 
-$flashMessageTimeSlot2.css({color: 'white',backgroundColor: 'green',fontSize: 30});
+$flashMessageTimeSlot2.css({color: 'white',backgroundColor: 'green',fontSize: 30, "border-radius":"7px","border-style": "ridge"});
 $flashMessageTimeSlot2.hide();
-//$flashMessageTimeSlot.slideDown(2000);
-//$flashMessageTimeSlot.delay(2000)
-//$flashMessageTimeSlot.slideUp(1000);
 
 
 
-
-
-//If the user selects a workshop....
-//if users selects JavaScript Frameworks Workshop — Tuesday 9am-12pm, $100
+//If the user selects a workshop
+//if users selects JavaScript Frameworks Workshop — Tuesday 9am-12pm
 
 //https://www.techcoil.com/blog/how-to-use-jquery-to-detect-user-checking-and-unchecking-a-checkbox/
 $($checkboxJsFrameworks).change(function() {
@@ -254,7 +251,7 @@ $($checkboxJsFrameworks).change(function() {
         
         $flashMessageTimeSlot.append($expressLabel.text());
         $flashMessageTimeSlot.slideDown(2000);
-        $flashMessageTimeSlot.delay(2000)
+        $flashMessageTimeSlot.delay(3000)
         $flashMessageTimeSlot.slideUp(1000);
 
     }
@@ -278,7 +275,7 @@ $($checkboxExpress).change(function() {
         
         $flashMessageTimeSlot.append($jsFrameworksLabel.text());
         $flashMessageTimeSlot.slideDown(2000);
-        $flashMessageTimeSlot.delay(2000)
+        $flashMessageTimeSlot.delay(3000)
         $flashMessageTimeSlot.slideUp(1000);
         
     }
@@ -303,7 +300,7 @@ $($checkboxJsLibraries).change(function() {
         
         $flashMessageTimeSlot2.append($nodeJsLabel.text());
         $flashMessageTimeSlot2.slideDown(2000);
-        $flashMessageTimeSlot2.delay(2000)
+        $flashMessageTimeSlot2.delay(3000)
         $flashMessageTimeSlot2.slideUp(1000);
     }
     else{
@@ -323,7 +320,7 @@ $($checkboxNodeJs).change(function() {
         
         $flashMessageTimeSlot2.append($jsLibrariesLabel.text());
         $flashMessageTimeSlot2.slideDown(2000);
-        $flashMessageTimeSlot2.delay(2000)
+        $flashMessageTimeSlot2.delay(3000)
         $flashMessageTimeSlot2.slideUp(1000);
     }
     else{
@@ -338,4 +335,6 @@ $($checkboxNodeJs).change(function() {
 
 //TODO: As a user selects activities, a running total should display below the list of checkboxes. For example, if the user selects "Main Conference", then Total: $200 should appear. If they add 1 workshop, the total should change to Total: $300.
 
-//add a variable to keep track of total cost. If that variable is > 0 then show ...some sort of element. div gick dåligt..
+//add a variable to keep track of total cost. If that variable is > 0 then show ...some sort of element. 
+const totalCost1 = 0
+
