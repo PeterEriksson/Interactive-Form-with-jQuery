@@ -217,17 +217,17 @@ const $npmLabel = $buildToolsLabel.next();
 
 
 //visually indicate that the workshop in the competing time slot isn't available -> lets create an element 'flashMessage' for this
-/*
+
 const $flashMessageTimeSlot = $('<div id="flashMessage">This workshop is no longer possible to choose: </div>'); 
 //$('.container').prepend($flashMessageTimeSlot);
 $('.activities').prepend($flashMessageTimeSlot);
 
 $flashMessageTimeSlot.css({color: 'white',backgroundColor: 'red',fontSize: 30});
 $flashMessageTimeSlot.hide();
-$flashMessageTimeSlot.slideDown(2000);
-$flashMessageTimeSlot.delay(2000)
-$flashMessageTimeSlot.slideUp(1000);
-*/
+//$flashMessageTimeSlot.slideDown(2000);
+//$flashMessageTimeSlot.delay(2000)
+//$flashMessageTimeSlot.slideUp(1000);
+
 
 
 
@@ -243,14 +243,16 @@ $($checkboxJsFrameworks).change(function() {
     if(($checkboxJsFrameworks).is(':checked')){
         $checkboxExpress.attr('disabled', true);
         
+        alert($flashMessageTimeSlot.text()+$expressLabel.text());
         
     }
     else{
         $checkboxExpress.attr('disabled', false);
+        
     }
 
 });
-//Works.
+
 
 $($checkboxExpress).change(function() {
 //    if($($checkboxJsFrameworks).attr('checked', false)){
@@ -258,6 +260,9 @@ $($checkboxExpress).change(function() {
 //        }
     if(($checkboxExpress).is(':checked')){
         $checkboxJsFrameworks.attr('disabled', true);
+        alert($flashMessageTimeSlot.text()+$jsFrameworksLabel.text());
+
+        
     }
     else{
         $checkboxJsFrameworks.attr('disabled', false);
