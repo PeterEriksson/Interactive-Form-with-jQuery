@@ -220,10 +220,17 @@ const $npmLabel = $buildToolsLabel.next();
 
 const $flashMessageTimeSlot = $('<div id="flashMessage">This workshop is no longer possible to choose: </div>'); 
 //$('.container').prepend($flashMessageTimeSlot);
+//TODO: If we will not use this solution then we can just put $flashMessage into a simple string and so we won't have to call text().
+const $flashMessageTimeSlot2 = $('<div id="flashMessage">This workshop is no longer possible to choose: </div>'); 
+
 $('.activities').prepend($flashMessageTimeSlot);
+$('.activities').prepend($flashMessageTimeSlot2);
 
 $flashMessageTimeSlot.css({color: 'white',backgroundColor: 'red',fontSize: 30});
 $flashMessageTimeSlot.hide();
+
+$flashMessageTimeSlot2.css({color: 'white',backgroundColor: 'green',fontSize: 30});
+$flashMessageTimeSlot2.hide();
 //$flashMessageTimeSlot.slideDown(2000);
 //$flashMessageTimeSlot.delay(2000)
 //$flashMessageTimeSlot.slideUp(1000);
@@ -243,12 +250,19 @@ $($checkboxJsFrameworks).change(function() {
     if(($checkboxJsFrameworks).is(':checked')){
         $checkboxExpress.attr('disabled', true);
         
-        alert($flashMessageTimeSlot.text()+$expressLabel.text());
+        //alert($flashMessageTimeSlot.text()+$expressLabel.text());
         
+        $flashMessageTimeSlot.append($expressLabel.text());
+        $flashMessageTimeSlot.slideDown(2000);
+        $flashMessageTimeSlot.delay(2000)
+        $flashMessageTimeSlot.slideUp(1000);
+
     }
     else{
         $checkboxExpress.attr('disabled', false);
         
+        $flashMessageTimeSlot.text('This workshop is no longer possible to choose: '); //seems to work
+
     }
 
 });
@@ -260,12 +274,19 @@ $($checkboxExpress).change(function() {
 //        }
     if(($checkboxExpress).is(':checked')){
         $checkboxJsFrameworks.attr('disabled', true);
-        alert($flashMessageTimeSlot.text()+$jsFrameworksLabel.text());
-
+        //alert($flashMessageTimeSlot.text()+$jsFrameworksLabel.text());
+        
+        $flashMessageTimeSlot.append($jsFrameworksLabel.text());
+        $flashMessageTimeSlot.slideDown(2000);
+        $flashMessageTimeSlot.delay(2000)
+        $flashMessageTimeSlot.slideUp(1000);
         
     }
     else{
         $checkboxJsFrameworks.attr('disabled', false);
+        
+        $flashMessageTimeSlot.text('This workshop is no longer possible to choose: ');
+        
     }
 
     
@@ -273,54 +294,48 @@ $($checkboxExpress).change(function() {
 
 
 
-//"copy"
 $($checkboxJsLibraries).change(function() {
-//    if($($checkboxJsFrameworks).attr('checked', false)){
-//        $($checkboxExpress).attr('disabled', true); 
-//        }
+
     if(($checkboxJsLibraries).is(':checked')){
         $checkboxNodeJs.attr('disabled', true);
         
-        alert($flashMessageTimeSlot.text()+$nodeJsLabel.text());
+        //alert($flashMessageTimeSlot.text()+$nodeJsLabel.text()); 
         
+        $flashMessageTimeSlot2.append($nodeJsLabel.text());
+        $flashMessageTimeSlot2.slideDown(2000);
+        $flashMessageTimeSlot2.delay(2000)
+        $flashMessageTimeSlot2.slideUp(1000);
     }
     else{
         $checkboxNodeJs.attr('disabled', false);
         
+        $flashMessageTimeSlot2.text('This workshop is no longer possible to choose: ');
     }
-
-});
-
-
-$($checkboxNodeJs).change(function() {
-//    if($($checkboxJsFrameworks).attr('checked', false)){
-//        $($checkboxExpress).attr('disabled', true); 
-//        }
-    if(($checkboxNodeJs).is(':checked')){
-        $checkboxJsLibraries.attr('disabled', true);
-        alert($flashMessageTimeSlot.text()+$jsLibrariesLabel.text());
-
-        
-    }
-    else{
-        $checkboxJsLibraries.attr('disabled', false);
-    }
-
     
 });
 
 
+$($checkboxNodeJs).change(function() {
+
+    if(($checkboxNodeJs).is(':checked')){
+        $checkboxJsLibraries.attr('disabled', true);
+        //alert($flashMessageTimeSlot.text()+$jsLibrariesLabel.text());
+        
+        $flashMessageTimeSlot2.append($jsLibrariesLabel.text());
+        $flashMessageTimeSlot2.slideDown(2000);
+        $flashMessageTimeSlot2.delay(2000)
+        $flashMessageTimeSlot2.slideUp(1000);
+    }
+    else{
+        $checkboxJsLibraries.attr('disabled', false);
+        
+        $flashMessageTimeSlot2.text('This workshop is no longer possible to choose: ');
+    }
+ 
+});
 
 
 
+//TODO: As a user selects activities, a running total should display below the list of checkboxes. For example, if the user selects "Main Conference", then Total: $200 should appear. If they add 1 workshop, the total should change to Total: $300.
 
-
-
-
-//Works.
-
-
-//TODO: display flashmessage with excerpt from text()
-//TODO: Do alert instead.
-
-
+//add a variable to keep track of total cost. If that variable is > 0 then show ...some sort of element. div gick dåligt..
