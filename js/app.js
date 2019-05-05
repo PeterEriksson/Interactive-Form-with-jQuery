@@ -384,6 +384,51 @@ $($checkboxNodeJs).change(function() {
  
 });
 
+$($checkboxAll).change(function(){
+   if(($checkboxAll).is(':checked')){
+       
+       totalCost += 200;
+       
+        $totalCost.text(totalCost);
+        $yourTotalCost.show();
+        $totalCost.show();
+   }
+    else{
+        totalCost -=200;
+        $totalCost.text(totalCost);
+    }
+    
+});
+
+
+$($checkboxBuildTools).change(function(){
+   if(($checkboxBuildTools).is(':checked')){
+       totalCost += 100;
+       
+        $totalCost.text(totalCost);
+        $yourTotalCost.show();
+        $totalCost.show();
+   } 
+    else{
+        totalCost -= 100;
+        $totalCost.text(totalCost);
+    }
+    
+});
+
+$($checkboxNpm).change(function(){
+    if(($checkboxNpm).is(':checked')){
+        totalCost += 100;
+        
+        $totalCost.text(totalCost);
+        $yourTotalCost.show();
+        $totalCost.show();
+    }
+    else{
+        totalCost -= 100;
+        $totalCost.text(totalCost);
+    }
+});
 
 
 //TODO: As a user selects activities, a running total should display below the list of checkboxes. For example, if the user selects "Main Conference", then Total: $200 should appear. If they add 1 workshop, the total should change to Total: $300.
