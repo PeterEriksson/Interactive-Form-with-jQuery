@@ -219,20 +219,35 @@ const $npmLabel = $buildToolsLabel.next();
 //Visually indicate that the workshop in the competing time slot isn't available -> lets create an element 'flashMessage' for this
 
 //Keeps track on Tuesday 9am-12pm
-const $flashMessageTimeSlot = $('<div id="flashMessage">This workshop is no longer possible to choose: </div>'); 
+const $flashMessageTimeSlot = $('<div id="flashMessage">On Tuesday morning, this workshop is no longer possible to choose: </div>'); 
 
 
 //Keeps track on Tuesday 1pm-4pm
-const $flashMessageTimeSlot2 = $('<div id="flashMessage">This workshop is no longer possible to choose: </div>'); 
+const $flashMessageTimeSlot2 = $('<div id="flashMessage">On Tuesday afternoon, this workshop is no longer possible to choose: </div>'); 
+
+//Keep track on cost
+let totalCost = 0
+//insert div at the end
+const $yourTotalCost =  $('<div id="yourCostDiv">Your cost is($): </div>'); 
+$('.activities').append($yourTotalCost);
+$yourTotalCost.hide();
+
+const $totalCost =
+$('<div id="yourTotalCost">Cost: </div>');
+$('.activities').append($totalCost);
+$totalCost.hide();
 
 $('.activities').prepend($flashMessageTimeSlot);
 $('.activities').prepend($flashMessageTimeSlot2);
 
-$flashMessageTimeSlot.css({color: 'white',backgroundColor: 'red',fontSize: 30,"border-radius":"7px","border-style": "ridge"});
+//Fix the style of the flashMessages
+$flashMessageTimeSlot.css({color: 'white',backgroundColor: 'red',fontSize: 20,"border-radius":"7px","border-style": "ridge","font-family":"Verdana, Geneva, sans-serif"});
 $flashMessageTimeSlot.hide();
 
-$flashMessageTimeSlot2.css({color: 'white',backgroundColor: 'green',fontSize: 30, "border-radius":"7px","border-style": "ridge"});
+$flashMessageTimeSlot2.css({color: 'white',backgroundColor: 'green',fontSize: 20, "border-radius":"7px","border-style": "ridge","font-family":"Verdana, Geneva, sans-serif"});
 $flashMessageTimeSlot2.hide();
+
+
 
 
 
@@ -240,6 +255,11 @@ $flashMessageTimeSlot2.hide();
 //if users selects JavaScript Frameworks Workshop — Tuesday 9am-12pm
 
 //https://www.techcoil.com/blog/how-to-use-jquery-to-detect-user-checking-and-unchecking-a-checkbox/
+
+
+//TODO: 3 more checkboxes to add .change to.
+
+
 $($checkboxJsFrameworks).change(function() {
 //    if($($checkboxJsFrameworks).attr('checked', false)){
 //        $($checkboxExpress).attr('disabled', true); 
@@ -247,19 +267,29 @@ $($checkboxJsFrameworks).change(function() {
     if(($checkboxJsFrameworks).is(':checked')){
         $checkboxExpress.attr('disabled', true);
         
-        //alert($flashMessageTimeSlot.text()+$expressLabel.text());
-        
         $flashMessageTimeSlot.append($expressLabel.text());
         $flashMessageTimeSlot.slideDown(2000);
         $flashMessageTimeSlot.delay(3000)
         $flashMessageTimeSlot.slideUp(1000);
+        
+        totalCost +=100;
+        $yourTotalCost.show();
+        $totalCost.text(totalCost);
+        $totalCost.show();
+        
+        
+        
 
     }
     else{
         $checkboxExpress.attr('disabled', false);
         
-        $flashMessageTimeSlot.text('This workshop is no longer possible to choose: '); //seems to work
-
+        $flashMessageTimeSlot.text('On Tuesday morning, this workshop is no longer possible to choose: '); 
+        
+        totalCost -=100;
+        $totalCost.text(totalCost);
+        
+        //$yourTotalCost.replaceWith(totalCost);
     }
 
 });
@@ -278,11 +308,18 @@ $($checkboxExpress).change(function() {
         $flashMessageTimeSlot.delay(3000)
         $flashMessageTimeSlot.slideUp(1000);
         
+        totalCost +=100;
+        
+        $totalCost.text(totalCost);
+        $yourTotalCost.show();
+        $totalCost.show();
     }
     else{
         $checkboxJsFrameworks.attr('disabled', false);
         
-        $flashMessageTimeSlot.text('This workshop is no longer possible to choose: ');
+        $flashMessageTimeSlot.text('On Tuesday morning, this workshop is no longer possible to choose: ');
+        totalCost -=100;
+        $totalCost.text(totalCost);
         
     }
 
@@ -302,11 +339,19 @@ $($checkboxJsLibraries).change(function() {
         $flashMessageTimeSlot2.slideDown(2000);
         $flashMessageTimeSlot2.delay(3000)
         $flashMessageTimeSlot2.slideUp(1000);
+        
+        totalCost +=100;
+        
+        $totalCost.text(totalCost);
+        $yourTotalCost.show();
+        $totalCost.show();
     }
     else{
         $checkboxNodeJs.attr('disabled', false);
         
-        $flashMessageTimeSlot2.text('This workshop is no longer possible to choose: ');
+        $flashMessageTimeSlot2.text('On Tuesday afternoon, this workshop is no longer possible to choose: ');
+        totalCost -=100;
+        $totalCost.text(totalCost);
     }
     
 });
@@ -322,11 +367,19 @@ $($checkboxNodeJs).change(function() {
         $flashMessageTimeSlot2.slideDown(2000);
         $flashMessageTimeSlot2.delay(3000)
         $flashMessageTimeSlot2.slideUp(1000);
+        
+        totalCost +=100;
+        
+        $totalCost.text(totalCost);
+        $yourTotalCost.show();
+        $totalCost.show();
     }
     else{
         $checkboxJsLibraries.attr('disabled', false);
         
-        $flashMessageTimeSlot2.text('This workshop is no longer possible to choose: ');
+        $flashMessageTimeSlot2.text('On Tuesday afternoon, this workshop is no longer possible to choose: ');
+        totalCost -=100;
+        $totalCost.text(totalCost);
     }
  
 });
@@ -336,5 +389,7 @@ $($checkboxNodeJs).change(function() {
 //TODO: As a user selects activities, a running total should display below the list of checkboxes. For example, if the user selects "Main Conference", then Total: $200 should appear. If they add 1 workshop, the total should change to Total: $300.
 
 //add a variable to keep track of total cost. If that variable is > 0 then show ...some sort of element. 
-const totalCost1 = 0
+//TODO: Add change functions for all boxes. Don't need flashmessages for these, but calculating cost is required.
+
+
 
