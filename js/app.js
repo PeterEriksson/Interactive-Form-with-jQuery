@@ -489,5 +489,42 @@ NOTE: Avoid using snippets or plugins for this project. To get the most out of t
 
 NOTE: Make sure your validation is only validating Credit Card info if Credit Card is the selected payment method.
 
-
 */
+
+//Select register button
+const $registerButton = $('button');
+//select name field
+const $nameField = $('#name');
+
+const emailValidationReg = /\w*\@\w*\.([a-z]{2,3})/;
+
+//name validation: first name followed by space followed by surname. {1,50} makes sure the name isn't too long.
+const nameValidationReg = /^[A-Z][a-z]{1,40}\s[A-Z][a-z]{1,40}$/; 
+
+//Select label name -> Name:
+const nameLabel = $nameField.prev();
+
+const $incorrectNameMessage = $('<div id="incorrectNameMessage">Please note: No numbers. Only a-z characters. Begin first name and surname with capital letters </div>'); 
+
+nameLabel.append($incorrectNameMessage);
+$incorrectNameMessage.hide();
+
+
+//http://jsfiddle.net/UKhAn/
+//Exceeds req: Program your form so that it provides a real-time validation error message for at least one text input field. Looks DONE.
+$($nameField).blur(function() {
+    var VAL = $(this).val();
+    
+    if(nameValidationReg.test(VAL)){
+
+        console.log('ok') 
+        $nameField.css({"border-color": '#c1deeb' });
+        $incorrectNameMessage.hide();
+        
+    }
+    else {
+        $nameField.css({"border-color": "red" });
+        $incorrectNameMessage.show(); 
+    }
+});
+
