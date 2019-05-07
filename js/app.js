@@ -28,7 +28,7 @@ $('#title').change(function() {
    }
     
     else {
-        $(textFieldOther).hide(500); //works.
+        $(textFieldOther).hide(500); 
     }
     
 });
@@ -52,6 +52,7 @@ const jsPuns = $('#design option:eq(1)'); //grabs js puns
 const heartJS = $('#design option:eq(2)');
 //heartJS.hide(); //works //but dont need them now.
 
+
 //Grab all different colors:
 const cornFlowerBlue = $('#color option:eq(0)');
 const darkSlateGrey = cornFlowerBlue.next();
@@ -60,10 +61,13 @@ const tomato = gold.next();
 const steelBlue = tomato.next();
 const dimGrey = steelBlue.next();
 
-
+//grab color label
+const $colorLabel = $('#color').prev();
+//hide colorLabel from the start
+$colorLabel.hide();
 
 //option is created
-// Note selected is declared. Therefore it will be displayed first in the drop-down list.
+// Note: selected is declared. Therefore it will be displayed first in the drop-down list.
 //https://stackoverflow.com/questions/3518002/how-can-i-set-the-default-value-for-an-html-select-element
 const $option= $('<option value="selectColor" selected>Please select a T-shirt theme</option>'); 
 
@@ -97,6 +101,7 @@ $('#design').change(function() {
         darkSlateGrey.show();
         gold.show();
         
+        
         tomato.hide();
         steelBlue.hide();
         dimGrey.hide();
@@ -107,6 +112,8 @@ $('#design').change(function() {
         //exceeds expectations:
         //“Color” drop down menu is hidden until a T-Shirt design is selected.
         $('#color').show(300);
+        //also show colorLabel
+        $colorLabel.show(300);
         
         
     }
@@ -129,6 +136,8 @@ $('#design').change(function() {
         //exceeds expectations:
         //“Color” drop down menu is hidden until a T-Shirt design is selected.
         $('#color').show(300);
+        //also show colorLabel
+        $colorLabel.show(300);
     }
     
     //the user selects "select theme" -> hide everything and display on Color menu "Please select a T-shirt theme"
@@ -141,11 +150,9 @@ $('#design').change(function() {
         cornFlowerBlue.hide();
         darkSlateGrey.hide();
         gold.hide();
-        
+    
         
         //display on Color menu "Please select a T-shirt theme"
-        //$('#color option:eq(0)').prop('selected', true);
-        //lets use our variable instead:
         $option.show();
         $($option).prop('selected', true);
     }
@@ -166,12 +173,9 @@ As a user selects activities, a running total should display below the list of c
 
 const $checkboxAll = $('input[name=all]');
 const $AllLabel = $('input[name=all]').parent(); //this gets both label AND checkbox
-//$($checkboxAll).prop('disabled', true); //works
 
 const $checkboxJsFrameworks = $('input[name=js-frameworks]');
-//$($checkboxJsFrameworks).prop('disabled', true); //works
-const $jsFrameworksLabel = $AllLabel.next(); //we can use .text() to get text of label
-//console.log($jsFrameworksLabel.text());
+const $jsFrameworksLabel = $AllLabel.next(); 
 
 const $checkboxJsLibraries = $('input[name=js-libs]');
 const $jsLibrariesLabel = $jsFrameworksLabel.next();
@@ -218,21 +222,15 @@ $('.activities').prepend($flashMessageTimeSlot2);
 $flashMessageTimeSlot.css({color: 'white',backgroundColor: 'red',fontSize: 20,"border-radius":"7px","border-style": "ridge","font-family":"Verdana, Geneva, sans-serif"});
 $flashMessageTimeSlot.hide();
 
-$flashMessageTimeSlot2.css({color: 'white',backgroundColor: 'green',fontSize: 20, "border-radius":"7px","border-style": "ridge","font-family":"Verdana, Geneva, sans-serif"});
+$flashMessageTimeSlot2.css({color: 'white',backgroundColor: 'blue',fontSize: 20, "border-radius":"7px","border-style": "ridge","font-family":"Verdana, Geneva, sans-serif"});
 $flashMessageTimeSlot2.hide();
 
 
 
 
 
-//If the user selects a workshop
-//if users selects JavaScript Frameworks Workshop — Tuesday 9am-12pm
-
+//If the user selects a workshop some hide/show events should occur (for some). Also update totalCost when checkbox is selected.
 //https://www.techcoil.com/blog/how-to-use-jquery-to-detect-user-checking-and-unchecking-a-checkbox/
-
-
-
-
 $($checkboxJsFrameworks).change(function() {
 //    if($($checkboxJsFrameworks).attr('checked', false)){
 //        $($checkboxExpress).attr('disabled', true); 
@@ -249,9 +247,6 @@ $($checkboxJsFrameworks).change(function() {
         $yourTotalCost.show();
         $totalCost.text(totalCost);
         $totalCost.show();
-        
-        
-        
 
     }
     else{
@@ -402,7 +397,7 @@ $($checkboxNpm).change(function(){
         $totalCost.text(totalCost);
     }
 });
-
+//End of checkbox events.
 
 
 /*
@@ -497,6 +492,8 @@ const $registerButton = $('button');
 const $nameField = $('#name');
 
 const emailValidationReg = /\w*\@\w*\.([a-z]{2,3})/;
+//select email field
+const $emailField = $("#mail");
 
 //name validation: first name followed by space followed by surname. {1,50} makes sure the name isn't too long.
 const nameValidationReg = /^[A-Z][a-z]{1,40}\s[A-Z][a-z]{1,40}$/; 
@@ -504,12 +501,16 @@ const nameValidationReg = /^[A-Z][a-z]{1,40}\s[A-Z][a-z]{1,40}$/;
 //Select label name -> Name:
 const nameLabel = $nameField.prev();
 
-const $incorrectNameMessage = $('<div id="incorrectNameMessage">Please note: No numbers. Only a-z characters. Begin first name and surname with capital letters </div>'); 
+const $incorrectNameMessage = $('<div id="incorrectNameMessage">Please note: No numbers. Only a-z characters. Type in only firstname and surname and start each with a capital letter </div>'); 
 
+//insert this text next to name label
 nameLabel.append($incorrectNameMessage);
+$incorrectNameMessage.css({color: 'red'});
+//hide it for now
 $incorrectNameMessage.hide();
 
 
+//Real-time Error Message (exceeds)
 //http://jsfiddle.net/UKhAn/
 //Exceeds req: Program your form so that it provides a real-time validation error message for at least one text input field. Looks DONE.
 $($nameField).blur(function() {
@@ -527,4 +528,12 @@ $($nameField).blur(function() {
         $incorrectNameMessage.show(); 
     }
 });
+
+
+//Email:
+//(you don't have to check that it's a real e-mail address, just that it's formatted like one: dave@teamtreehouse.com for example.
+//Conditional Error Message (exceeds)
+
+
+
 
