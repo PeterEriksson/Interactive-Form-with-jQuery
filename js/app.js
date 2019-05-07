@@ -491,10 +491,6 @@ const $registerButton = $('button');
 //select name field
 const $nameField = $('#name');
 
-const emailValidationReg = /\w*\@\w*\.([a-z]{2,3})/;
-//select email field
-const $emailField = $("#mail");
-
 //name validation: first name followed by space followed by surname. {1,50} makes sure the name isn't too long.
 const nameValidationReg = /^[A-Z][a-z]{1,40}\s[A-Z][a-z]{1,40}$/; 
 
@@ -510,15 +506,14 @@ $incorrectNameMessage.css({color: 'red'});
 $incorrectNameMessage.hide();
 
 
-//Real-time Error Message (exceeds)
+//Real-time Error Message (exceeds) for name field:
 //http://jsfiddle.net/UKhAn/
-//Exceeds req: Program your form so that it provides a real-time validation error message for at least one text input field. Looks DONE.
 $($nameField).blur(function() {
     var VAL = $(this).val();
     
     if(nameValidationReg.test(VAL)){
 
-        console.log('ok') 
+        //console.log('ok') 
         $nameField.css({"border-color": '#c1deeb' });
         $incorrectNameMessage.hide();
         
@@ -530,10 +525,46 @@ $($nameField).blur(function() {
 });
 
 
-//Email:
-//(you don't have to check that it's a real e-mail address, just that it's formatted like one: dave@teamtreehouse.com for example.
-//Conditional Error Message (exceeds)
+//Real-time Error Message (exceeds) for email field:
+//const emailValidationReg = /(\w*)(\@)(\w*)(\.)([a-z]{2,3})/;
+///^[^@]+@[^@.]+\.[a-z]+$/i
+//from 'Validating a username'
+const emailValidationReg = /^([^@]+)(@)([^@.]+)(\.)([a-z]+)$/i;
+
+const $incorrectEmailMessage = $('<div id="incorrectEmailMessage">Please note: Email field must be a validly formatted e-mail address, for example dave@hotmail.com. Use only lowercase. </div>'); 
+
+//select email field
+const $emailField = $("#mail");
+
+//select emailLabel
+const emailLabel = $emailField.prev();
+//insert $incorrectEmailMessage next to emailLabel
+emailLabel.append($incorrectEmailMessage);
+//change text color to red
+$incorrectEmailMessage.css({color: 'red'});
+//Hide $incorrectEmailMessage to begin with
+$incorrectEmailMessage.hide();
+
+//[^@]  ->anything that is not an @ symbol
+// i -> only lower case
+
+$($emailField).blur(function(){
+    var emailVAL = $(this).val();
+    
+    if(emailValidationReg.test(emailVAL)){
+    console.log('oK');
+    $emailField.css({"border-color": '#c1deeb' });
+    $incorrectEmailMessage.hide();
+    
+    }
+    else{
+        $emailField.css({"border-color": "red" });
+        $incorrectEmailMessage.show(); 
+    }
+    
+}); //Done with Real-time Error Messages
 
 
 
+//TODO Conditional Error Message for credit card
 
