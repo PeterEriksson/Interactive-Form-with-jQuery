@@ -506,14 +506,13 @@ $incorrectNameMessage.css({color: 'red'});
 $incorrectNameMessage.hide();
 
 
-//Real-time Error Message (exceeds) for name field:
+//Real-time Error Message (exceeds req) for name field:
 //http://jsfiddle.net/UKhAn/
 $($nameField).blur(function() {
     var VAL = $(this).val();
     
     if(nameValidationReg.test(VAL)){
 
-        //console.log('ok') 
         $nameField.css({"border-color": '#c1deeb' });
         $incorrectNameMessage.hide();
         
@@ -525,13 +524,11 @@ $($nameField).blur(function() {
 });
 
 
-//Real-time Error Message (exceeds) for email field:
-//const emailValidationReg = /(\w*)(\@)(\w*)(\.)([a-z]{2,3})/;
-///^[^@]+@[^@.]+\.[a-z]+$/i
-//from 'Validating a username'
+//Real-time Error Message (exceeds req) for email field:
+
 const emailValidationReg = /^([^@]+)(@)([^@.]+)(\.)([a-z]+)$/i;
 
-const $incorrectEmailMessage = $('<div id="incorrectEmailMessage">Please note: Email field must be a validly formatted e-mail address, for example dave@hotmail.com. Use only lowercase. </div>'); 
+const $incorrectEmailMessage = $('<div id="incorrectEmailMessage">Please note: Email field must be a validly formatted e-mail address, for example mike@hotmail.com. Use only lowercase. </div>'); 
 
 //select email field
 const $emailField = $("#mail");
@@ -552,7 +549,6 @@ $($emailField).blur(function(){
     var emailVAL = $(this).val();
     
     if(emailValidationReg.test(emailVAL)){
-    console.log('oK');
     $emailField.css({"border-color": '#c1deeb' });
     $incorrectEmailMessage.hide();
     
@@ -565,6 +561,212 @@ $($emailField).blur(function(){
 }); //Done with Real-time Error Messages
 
 
+//TODO: Form validation messages for the rest
+/*
+Provide some kind of indication when there’s a validation error. The field’s borders could turn red, for example, or even better for the user would be if a red text message appeared near the field.
+The following fields should have some obvious form of an error indication:
+Name field
+Email field
+Register for Activities checkboxes (at least one must be selected)
+Credit Card number (Only if Credit Card payment method is selected)
+Zip Code (Only if Credit Card payment method is selected)
+CVV (Only if Credit Card payment method is selected)
 
-//TODO Conditional Error Message for credit card
+Note: Error messages or indications should not be visible by default. They should only show upon submission, or after some user interaction.
+*/
+
+//create a message to show if no checkboxes are selected
+const $incorrectCheckboxSelected = $('<div id="incorrectCheckboxSelected">Please note: At least one checkbox must be selected </div>'); 
+
+$('.activities').prepend($incorrectCheckboxSelected);
+$incorrectCheckboxSelected.css({color: 'red'});
+$incorrectCheckboxSelected.hide();
+
+
+//$($checkboxAll).prepend($incorrectCheckboxSelected);
+//$incorrectCheckboxSelected.show();
+
+
+//$incorrectCheckboxSelected.hide();
+
+
+//Conditional Error Message for credit card (exceeds requirement)
+/*
+Program at least one of your error messages so that more information is provided depending on the error. For example, if the user hasn’t entered a credit card number and the field is completely blank, the error message reads “Please enter a credit card number.” If the field isn’t empty but contains only 10 numbers, the error message reads “Please enter a number that is between 13 and 16 digits long.”
+*/
+
+const $inputCreditCardMessage = $('<div id="inputCreditCard"> Enter a credit card number. </div>'); 
+
+const $incorrectCreditCardMessage = $('<div id="incorrectCreditCard">Enter a card number (between 13 and 16 digits long) </div>'); 
+
+$inputCreditCardMessage.css({color: 'red'});
+$incorrectCreditCardMessage.css({color: 'red'});
+
+$("#credit-card").prepend($inputCreditCardMessage);
+$inputCreditCardMessage.hide();
+
+$("#credit-card").prepend($incorrectCreditCardMessage);
+$incorrectCreditCardMessage.hide();
+    
+//$("label:contains('Card Number:')").prepend($inputCreditCardMessage);
+//$inputCreditCardMessage.show();
+
+const creditCardRegex = /^\d{13,16}$/;
+
+const $noBlankFieldsDiv = $('<div id="noBlankFieldsDiv">Make sure no text input fields are blank </div>'); 
+
+//in case text input credit card fields is blank -> show message:
+
+$("#credit-card").append($noBlankFieldsDiv);
+$noBlankFieldsDiv.hide();
+
+//select credit card number field:
+const $creditNumField = $("#cc-num");
+
+//Conditional Error Message for credit card
+$($creditNumField).blur(function(){
+    var creditNumberVal = $(this).val();
+    
+    if(creditCardRegex.test(creditNumberVal)){
+
+    $incorrectEmailMessage.hide();
+    $incorrectCreditCardMessage.hide();
+        
+    
+    }
+    else{
+        $incorrectCreditCardMessage.show(); 
+        
+    }
+    
+});
+$($creditNumField).blur(function(){
+
+    var creditNumberVall = $(this).val();
+    if(creditNumberVall === ''){
+//        
+        $inputCreditCardMessage.show(); 
+//    
+    }
+    else {
+//    console.log('testing if regex is working');
+//    $incorrectCreditCardMessage.css({"border-color": '#c1deeb' });
+        $inputCreditCardMessage.hide();
+        }
+    
+    
+
+});//End of Conditional Error Message for credit card
+    
+//select cvv text input 
+const $cvvField = $('#cvv');
+//select zip text input 
+const $zipField = $('#zip');
+
+//When we click register button we want to check if everything in the form is OK. If not then incorrect messages should appear.
+
+/*
+$($registerButton).click(function(){
+    
+    //validate that atleast one checkbox is selected
+    if(totalCost===0){
+        $incorrectCheckboxSelected.show();
+        
+        //make button type submit disabled
+        $registerButton.prop('disabled', true);
+  
+    }
+    
+    
+    else if($emailField.val()===''){
+        $incorrectCheckboxSelected.hide();
+        
+        $registerButton.prop('disabled', true);
+        
+        const inputMailString = 'please input email';
+        
+        $incorrectEmailMessage.show();
+        $emailField.val(inputMailString); 
+        $emailField.css({"border-color": "red" });
+        
+    }
+    
+    else if($nameField.val()===''){
+        $registerButton.prop('disabled', true);
+        $incorrectCheckboxSelected.hide();
+    }
+    
+    else if(($inputCreditCardMessage || $incorrectCreditCardMessage).is(":visible")){
+        $registerButton.prop('disabled', true);
+        
+            
+    }
+    
+    else if(($zipField.val()==='' )|| ($cvvField.val()==='')){
+        
+        $registerButton.prop('disabled', true);
+        $noBlankFieldsDiv.show();
+        console.log('checking zip and cvv');
+        
+    }
+    
+    else{
+        $registerButton.prop('disabled', false);
+    }
+    
+
+
+});
+*/
+
+//lets loop through all text input fields and see if anyone is empty
+//if someone empty then $noBlankFieldsDiv.show();
+//https://stackoverflow.com/questions/4758259/looping-through-input-fields-for-validation-using-jquery-each
+//   $($registerButton).click(function() {
+//        $($nameField,  $emailField, textFieldOther).each(function() {
+//            if(this.val()==='') {
+//                console.log(this.value + " is a valid number");
+//            }
+//        });
+//        return false;
+//    });
+
+/*
+   $($registerButton).click(function() {
+        $("input[type=text]").each(function() {
+            if($(this).val()==='') {
+                console.log(this.value + " is a valid number");
+            }
+        });
+        return false;
+    });
+*/
+   $($registerButton).click(function() {
+       
+        $([$nameField,  $emailField, $creditNumField, $zipField, $cvvField]).each(function() {
+//            if($(this).val()==='') {
+//                $noBlankFieldsDiv.show();
+//                $registerButton.prop('disabled', true);
+//            }
+//            
+//           else{
+//                $registerButton.prop('disabled', false);
+//           }
+//            
+            
+            
+            if($incorrectNameMessage.is(":visible")||$incorrectEmailMessage.is(":visible")||totalCost===0||$incorrectCreditCardMessage.is(":visible")){
+                $registerButton.prop('disabled', true);
+                console.log('testing hello');
+            }
+            
+        });
+        
+       
+       
+        //$registerButton.prop('disabled', false);
+    });
+
+
+             $registerButton.prop('disabled', true);
 
