@@ -597,7 +597,7 @@ Program at least one of your error messages so that more information is provided
 
 const $inputCreditCardMessage = $('<div id="inputCreditCard"> Enter a credit card number. </div>'); 
 
-const $incorrectCreditCardMessage = $('<div id="incorrectCreditCard">Enter a card number (between 13 and 16 digits long) </div>'); 
+const $incorrectCreditCardMessage = $('<div id="incorrectCreditCard">Enter a card number between 13 and 16 digits long, zip 5 digits, cvv 3 digits </div>'); 
 
 $inputCreditCardMessage.css({color: 'red'});
 $incorrectCreditCardMessage.css({color: 'red'});
@@ -613,7 +613,7 @@ $incorrectCreditCardMessage.hide();
 
 const creditCardRegex = /^\d{13,16}$/;
 
-const $noBlankFieldsDiv = $('<div id="noBlankFieldsDiv">Make sure no text input fields are blank </div>'); 
+const $noBlankFieldsDiv = $('<div id="noBlankFieldsDiv">Please review the form. Take a look at the error messages. Make sure atleast one activity checkbox is chosen. </div>'); 
 
 //in case text input credit card fields is blank -> show message:
 
@@ -632,9 +632,12 @@ $($creditNumField).blur(function(){
     $incorrectEmailMessage.hide();
     $incorrectCreditCardMessage.hide();
         
+        $creditNumField.css({"border-color": '#c1deeb' });
+        
     
     }
     else{
+        $creditNumField.css({"border-color": "red" });
         $incorrectCreditCardMessage.show(); 
         
     }
@@ -663,21 +666,92 @@ const $cvvField = $('#cvv');
 //select zip text input 
 const $zipField = $('#zip');
 
+const cvvRegex = /^\d{3}$/;
+const zipRegex =/^\d{5}$/; 
+
+$($cvvField).blur(function() {
+    var VALcvv = $(this).val();
+    
+    if(cvvRegex.test(VALcvv)){
+
+        $cvvField.css({"border-color": '#c1deeb' });
+        $incorrectCreditCardMessage.hide();
+        
+    }
+    else {
+        $cvvField.css({"border-color": "red" });
+        $incorrectCreditCardMessage.show(); 
+    }
+});
+
+$($zipField).blur(function() {
+    var VALzip = $(this).val();
+    
+    if(zipRegex.test(VALzip)){
+
+        $zipField.css({"border-color": '#c1deeb' });
+        $incorrectCreditCardMessage.hide();
+        
+    }
+    else {
+        $zipField.css({"border-color": "red" });
+        $incorrectCreditCardMessage.show(); 
+    }
+});
+
+
+
 //When we click register button we want to check if everything in the form is OK. If not then incorrect messages should appear.
+
+
+ 
+
+ 
 
 /*
 $($registerButton).click(function(){
     
-    //validate that atleast one checkbox is selected
-    if(totalCost===0){
-        $incorrectCheckboxSelected.show();
+     if(totalCost===0||$emailField.val()===''||$nameField.val()===''||$incorrectCreditCardMessage.is(":visible")||$incorrectNameMessage.is(":visible")||$incorrectEmailMessage.is(":visible")||$cvvField.val()===''||$creditNumField.val()===''){
+        
         
         //make button type submit disabled
         $registerButton.prop('disabled', true);
-  
+        //show error message ('look for real time error messages')
+        $noBlankFieldsDiv.show();
+        console.log('test');
+
+        
+
     }
     
+    });
+*/
+
+$($registerButton).on('click', '.container', function(){
     
+    if(totalCost===0||$emailField.val()===''||$nameField.val()===''||$incorrectCreditCardMessage.is(":visible")||$incorrectNameMessage.is(":visible")||$incorrectEmailMessage.is(":visible")||$cvvField.val()===''||$creditNumField.val()===''){
+        
+        
+        //make button type submit disabled
+        $registerButton.prop('disabled', true);
+        //show error message ('look for real time error messages')
+        $noBlankFieldsDiv.show();
+        console.log('test');
+
+        
+
+    }
+    
+    });
+
+
+
+
+
+
+
+
+    /*
     else if($emailField.val()===''){
         $incorrectCheckboxSelected.hide();
         
@@ -741,9 +815,10 @@ $($registerButton).click(function(){
         return false;
     });
 */
+/*
    $($registerButton).click(function() {
        
-        $([$nameField,  $emailField, $creditNumField, $zipField, $cvvField]).each(function() {
+        $([$nameField, $emailField, $creditNumField, $zipField]).each(function() {
 //            if($(this).val()==='') {
 //                $noBlankFieldsDiv.show();
 //                $registerButton.prop('disabled', true);
@@ -755,7 +830,7 @@ $($registerButton).click(function(){
 //            
             
             
-            if($incorrectNameMessage.is(":visible")||$incorrectEmailMessage.is(":visible")||totalCost===0||$incorrectCreditCardMessage.is(":visible")){
+            if($incorrectNameMessage.is(":visible")){
                 $registerButton.prop('disabled', true);
                 console.log('testing hello');
             }
@@ -766,7 +841,5 @@ $($registerButton).click(function(){
        
         //$registerButton.prop('disabled', false);
     });
-
-
-             $registerButton.prop('disabled', true);
+*/
 
