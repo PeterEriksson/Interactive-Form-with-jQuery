@@ -211,7 +211,7 @@ $('.activities').append($yourTotalCost);
 $yourTotalCost.hide();
 
 const $totalCost =
-$('<div id="yourTotalCost">Cost: </div>');
+$('<div id="yourTotalCost"> </div>');
 $('.activities').append($totalCost);
 $totalCost.hide();
 
@@ -623,22 +623,25 @@ $noBlankFieldsDiv.hide();
 //select credit card number field:
 const $creditNumField = $("#cc-num");
 
+let creditNumBoarderRed = false;
+
 //Conditional Error Message for credit card
 $($creditNumField).blur(function(){
     var creditNumberVal = $(this).val();
     
     if(creditCardRegex.test(creditNumberVal)){
 
-    $incorrectEmailMessage.hide();
     $incorrectCreditCardMessage.hide();
         
         $creditNumField.css({"border-color": '#c1deeb' });
         
+        creditNumBoarderRed = false;
     
     }
     else{
         $creditNumField.css({"border-color": "red" });
         $incorrectCreditCardMessage.show(); 
+        creditNumBoarderRed = true;
         
     }
     
@@ -669,6 +672,8 @@ const $zipField = $('#zip');
 const cvvRegex = /^\d{3}$/;
 const zipRegex =/^\d{5}$/; 
 
+let cvvFieldBoarderRed = false;
+
 $($cvvField).blur(function() {
     var VALcvv = $(this).val();
     
@@ -676,14 +681,17 @@ $($cvvField).blur(function() {
 
         $cvvField.css({"border-color": '#c1deeb' });
         $incorrectCreditCardMessage.hide();
+        cvvFieldBoarderRed=false;
         
     }
     else {
         $cvvField.css({"border-color": "red" });
         $incorrectCreditCardMessage.show(); 
+        cvvFieldBoarderRed=true;
     }
 });
 
+let zipFieldBoarderRed = false;
 $($zipField).blur(function() {
     var VALzip = $(this).val();
     
@@ -691,155 +699,176 @@ $($zipField).blur(function() {
 
         $zipField.css({"border-color": '#c1deeb' });
         $incorrectCreditCardMessage.hide();
+        zipFieldBoarderRed = false;
         
     }
     else {
         $zipField.css({"border-color": "red" });
         $incorrectCreditCardMessage.show(); 
+        zipFieldBoarderRed = true;
     }
 });
 
 
 
-//When we click register button we want to check if everything in the form is OK. If not then incorrect messages should appear.
 
 
- 
+//$incorrectCheckboxSelected.show();
+//TEST THING
 
- 
 
-/*
-$($registerButton).click(function(){
+
+
+
+const $sucessfulFormMessage = $('<div id="sucessfulFormMessage">Your form was submitted! </div>'); 
+
+$("#credit-card").append($sucessfulFormMessage);
+$sucessfulFormMessage.hide();
+
+
+//register button is clicked
+$('.container').on('click', 'button', function(event) {
+
+    event.preventDefault();
     
-     if(totalCost===0||$emailField.val()===''||$nameField.val()===''||$incorrectCreditCardMessage.is(":visible")||$incorrectNameMessage.is(":visible")||$incorrectEmailMessage.is(":visible")||$cvvField.val()===''||$creditNumField.val()===''){
-        
-        
-        //make button type submit disabled
-        $registerButton.prop('disabled', true);
-        //show error message ('look for real time error messages')
-        $noBlankFieldsDiv.show();
-        console.log('test');
-
-        
-
-    }
+    //Loop thorugh every text field
+    //"form input"
+  //  $([$incorrectNameMessage, $incorrectEmailMessage, $incorrectCheckboxSelected, $incorrectCreditCardMessage]).each(function() {
+    //if($(creditCardDiv).is(':visible'))
     
-    });
-*/
-
-$($registerButton).on('click', '.container', function(){
-    
-    if(totalCost===0||$emailField.val()===''||$nameField.val()===''||$incorrectCreditCardMessage.is(":visible")||$incorrectNameMessage.is(":visible")||$incorrectEmailMessage.is(":visible")||$cvvField.val()===''||$creditNumField.val()===''){
-        
-        
-        //make button type submit disabled
-        $registerButton.prop('disabled', true);
-        //show error message ('look for real time error messages')
-        $noBlankFieldsDiv.show();
-        console.log('test');
-
-        
-
-    }
-    
-    });
-
-
-
-
-
-
-
-
-    /*
-    else if($emailField.val()===''){
-        $incorrectCheckboxSelected.hide();
-        
-        $registerButton.prop('disabled', true);
-        
-        const inputMailString = 'please input email';
-        
-        $incorrectEmailMessage.show();
-        $emailField.val(inputMailString); 
-        $emailField.css({"border-color": "red" });
+    if($(creditCardDiv).is(':hidden')){
+        $creditNumField.val('');
+        $zipField.val('');
+        $cvvField.val('');
+        event.preventDefault();
         
     }
     
-    else if($nameField.val()===''){
-        $registerButton.prop('disabled', true);
-        $incorrectCheckboxSelected.hide();
-    }
     
-    else if(($inputCreditCardMessage || $incorrectCreditCardMessage).is(":visible")){
-        $registerButton.prop('disabled', true);
+    
+    if ($($incorrectNameMessage).is(':visible')){ 
+
+            event.preventDefault();
+            alert('review name field');
+            
+        }
+        
+    
+        if ($($incorrectEmailMessage).is(':visible')){ 
+
+            event.preventDefault();
+            alert('review email field');
+            
+        }
+
+        if (totalCost===0){ 
+
+            event.preventDefault();
+            alert('select atleast 1 activity');
+            $incorrectCheckboxSelected.show();
+            
+        }
+        
+
+    
+        if($emailField.val()===''){
+            event.preventDefault();
+                alert('insert an email');
+            }
+    
+    
         
             
-    }
-    
-    else if(($zipField.val()==='' )|| ($cvvField.val()==='')){
-        
-        $registerButton.prop('disabled', true);
-        $noBlankFieldsDiv.show();
-        console.log('checking zip and cvv');
-        
-    }
-    
-    else{
-        $registerButton.prop('disabled', false);
-    }
-    
-
-
-});
-*/
-
-//lets loop through all text input fields and see if anyone is empty
-//if someone empty then $noBlankFieldsDiv.show();
-//https://stackoverflow.com/questions/4758259/looping-through-input-fields-for-validation-using-jquery-each
-//   $($registerButton).click(function() {
-//        $($nameField,  $emailField, textFieldOther).each(function() {
-//            if(this.val()==='') {
-//                console.log(this.value + " is a valid number");
-//            }
-//        });
-//        return false;
-//    });
-
-/*
-   $($registerButton).click(function() {
-        $("input[type=text]").each(function() {
-            if($(this).val()==='') {
-                console.log(this.value + " is a valid number");
-            }
-        });
-        return false;
-    });
-*/
-/*
-   $($registerButton).click(function() {
-       
-        $([$nameField, $emailField, $creditNumField, $zipField]).each(function() {
-//            if($(this).val()==='') {
-//                $noBlankFieldsDiv.show();
-//                $registerButton.prop('disabled', true);
-//            }
+//            if (($($incorrectCreditCardMessage).is(':visible'))){ 
+////||$($creditNumField.val()==='')
+//            event.preventDefault();
+//            alert('review credit card number field ffs');
 //            
-//           else{
-//                $registerButton.prop('disabled', false);
+//        }
+        
+    
+          if((creditNumBoarderRed===true)||($creditNumField.val()==='')){
+              alert('review credit num field');
+          }
+    
+           if((zipFieldBoarderRed===true)||($zipField.val()==='')){
+              alert('review zip field');
+          }
+    
+            if((cvvFieldBoarderRed===true)||($cvvField.val()==='')){
+              alert('review cvv field');
+          }
+            
+    
+            /*
+            if($creditNumField.val()===''){
+                alert('review credit num field, input 13-16 digits');
+            }
+            */
+//        if ($($creditNumField.css({"border-color": "red" }))){
+//            alert('review credit card number field');
+//        }
+        
+    
+//        if($($zipField.css({"border-color": "red" }))){
+//           
+//                     event.preventDefault();
+//                    alert('review zip number field');
 //           }
-//            
-            
-            
-            if($incorrectNameMessage.is(":visible")){
-                $registerButton.prop('disabled', true);
-                console.log('testing hello');
-            }
-            
-        });
+    
+//            if($zipField.val()===''){
+//           
+//                     event.preventDefault();
+//                    alert('review zip number field');
+//           }
         
        
-       
-        //$registerButton.prop('disabled', false);
-    });
+    
+         else{
+            event.preventDefault();
+
+            console.log('test');
+        }
+            //seems ok. but need to work on paypal/bitcoin condition.
+        
+   //  });
+    
+
+    
+  });  
+ 
+//Go through all different scenarios that we dont want. If any of them is true then show error div message.
+/*
+$('.container').on('click', 'button', function(event) {
+if($incorrectNameMessage.is(":visible")||$incorrectEmailMessage.is(":visible")||$emailField.val()===''||totalCost===0||$incorrectCreditCardMessage.is(":visible")||$zipField.val()===''||$cvvField.val()==='' ){
+    
+    event.preventDefault();
+   
+    $noBlankFieldsDiv.show();
+
+}
+
+    else{
+        //show that the form was valid
+        $sucessfulFormMessage.show();
+        //delay so that the user can read the successfull message, then trigger the event
+        setTimeout(location.reload.bind(location), 3000);
+        (!event.preventDefault());
+    }
+    
+
+    
+});
 */
+
+/*
+NOTE:
+
+On submission, the form provides an error indication or message for each field that requires validation:
+Name field
+Email field
+“Register for Activities” checkboxes
+Credit Card number, Zip code, and CVV, only if the credit card payment method is selected.
+*/
+
 
