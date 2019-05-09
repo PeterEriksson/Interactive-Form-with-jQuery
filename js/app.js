@@ -872,7 +872,7 @@ if(creditCardSelected===true){
     
 
        
-    
+    //
          else{
             event.preventDefault();
 
