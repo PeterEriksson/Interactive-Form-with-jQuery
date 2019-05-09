@@ -433,12 +433,20 @@ paypalDiv.hide();
 const bitcoinDiv = $("p:eq(1)");
 bitcoinDiv.hide();
 
+let paypalSelected = false; 
+let bitcoinSelected = false;
+let creditCardSelected = false;
+
 //We select an option in select id payment, the option is Paypal:
 $('#payment').change(function(){
     if($(this).val() ==="paypal"){
         paypalDiv.show();
         bitcoinDiv.hide();
         creditCardDiv.hide();
+        
+        paypalSelected=true
+        bitcoinSelected=false;
+        creditCardSelected = false;
     }
     
 });
@@ -450,6 +458,10 @@ $('#payment').change(function(){
         bitcoinDiv.show();
         paypalDiv.hide();
         creditCardDiv.hide();
+        
+        paypalSelected=false;
+        bitcoinSelected=true;
+        creditCardSelected = false;
     }
     
 });
@@ -457,13 +469,17 @@ $('#payment').change(function(){
 $('#payment').change(function(){
     if($(this).val() ==="credit card"){
         creditCardDiv.show();
-        bitcoinDiv.show();
+        bitcoinDiv.hide();
         paypalDiv.hide();
+        
+        paypalSelected=false;
+        bitcoinSelected=false;
+        creditCardSelected = false;
     }
     
 });
 
-/* TODO
+/* 
 Form validation
 
 If any of the following validation errors exist, prevent the user from submitting the form:
@@ -561,7 +577,7 @@ $($emailField).blur(function(){
 }); //Done with Real-time Error Messages
 
 
-//TODO: Form validation messages for the rest
+// Form validation messages for the rest
 /*
 Provide some kind of indication when there’s a validation error. The field’s borders could turn red, for example, or even better for the user would be if a red text message appeared near the field.
 The following fields should have some obvious form of an error indication:
@@ -737,16 +753,18 @@ $('.container').on('click', 'button', function(event) {
     //if($(creditCardDiv).is(':visible'))
     
     if($(creditCardDiv).is(':hidden')){
-        $creditNumField.val('');
-        $zipField.val('');
-        $cvvField.val('');
+        $creditNumField.val('waiting input');
+        $zipField.val('waiting input');
+        $cvvField.val('waiting input');
         event.preventDefault();
         
     }
     
-   //fdssfdsdf 
+//TODO: NOT so much left. Paypal Bitcoin validation... credit fields cannot be blanked when form submitted (like they are in the start). 
     
-    if ($($incorrectNameMessage).is(':visible')){ 
+if(paypalSelected===true||bitcoinSelected===true){
+    
+       if ($($incorrectNameMessage).is(':visible')){ 
 
             event.preventDefault();
             alert('review name field');
@@ -787,41 +805,72 @@ $('.container').on('click', 'button', function(event) {
 //        }
         
     
-          if((creditNumBoarderRed===true)||($creditNumField.val()==='')){
+          if((creditNumBoarderRed===true)||($creditNumField.val()==='')||$creditNumField.val()===!('waiting input')){
               alert('review credit num field');
           }
     
-           if((zipFieldBoarderRed===true)||($zipField.val()==='')){
+           if((zipFieldBoarderRed===true)||($zipField.val()==='')||$zipField.val()===!('waiting input')){
               alert('review zip field');
           }
     
-            if((cvvFieldBoarderRed===true)||($cvvField.val()==='')){
+            if((cvvFieldBoarderRed===true)||($cvvField.val()==='')||$cvvField.val()===!('waiting input')){
               alert('review cvv field');
           }
+        
+    }
+    
+    
+if(creditCardSelected===true){
             
+            if ($($incorrectNameMessage).is(':visible')){ 
+
+            event.preventDefault();
+            alert('review name field');
+            
+        }
+        
     
-            /*
-            if($creditNumField.val()===''){
-                alert('review credit num field, input 13-16 digits');
+        if ($($incorrectEmailMessage).is(':visible')){ 
+
+            event.preventDefault();
+            alert('review email field');
+            
+        }
+
+        if (totalCost===0){ 
+
+            event.preventDefault();
+            alert('select atleast 1 activity');
+            $incorrectCheckboxSelected.show();
+            
+        }
+        
+
+    
+        if($emailField.val()===''){
+            event.preventDefault();
+                alert('insert an email');
             }
-            */
-//        if ($($creditNumField.css({"border-color": "red" }))){
-//            alert('review credit card number field');
-//        }
+
+            
+            
+    }
         
     
-//        if($($zipField.css({"border-color": "red" }))){
-//           
-//                     event.preventDefault();
-//                    alert('review zip number field');
-//           }
+//            if($creditNumField.val()==='waiting input') {
+//                alert('review credit num field');
+//            }
+//    
+//            if($zipField.val()==='waiting input'){
+//                alert('review zip num field');
+//            }
+//    
+//            if($cvvField.val()==='waiting input'){
+//                alert('review cvv num field');
+//            }
+//            
     
-//            if($zipField.val()===''){
-//           
-//                     event.preventDefault();
-//                    alert('review zip number field');
-//           }
-        
+
        
     
          else{
@@ -847,6 +896,8 @@ if($incorrectNameMessage.is(":visible")||$incorrectEmailMessage.is(":visible")||
     $noBlankFieldsDiv.show();
 
 }
+
+//TODO: consider using delay()
 
     else{
         //show that the form was valid
