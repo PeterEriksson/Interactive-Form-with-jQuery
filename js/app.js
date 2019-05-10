@@ -758,11 +758,16 @@ $('.container').on('click', 'button', function(event) {
         $cvvField.val('waiting input');
         event.preventDefault();
         
+        
+        
+        //todo: maybe: och alla andra är korrekta??
+        //TODO: Ok so if we go to paypal/bitcoin and eveything is fine and we submit but then we go back to creditcard and we submit AND IT SHOULD NOT SUBMIT.
+        
     }
     
 //TODO: NOT so much left. Paypal Bitcoin validation... credit fields cannot be blanked when form submitted (like they are in the start). 
     
-if(paypalSelected===true||bitcoinSelected===true){
+
     
        if ($($incorrectNameMessage).is(':visible')){ 
 
@@ -797,129 +802,34 @@ if(paypalSelected===true||bitcoinSelected===true){
     
         
             
-//            if (($($incorrectCreditCardMessage).is(':visible'))){ 
-////||$($creditNumField.val()==='')
-//            event.preventDefault();
-//            alert('review credit card number field ffs');
-//            
-//        }
-        
-    
-          if((creditNumBoarderRed===true)||($creditNumField.val()==='')||$creditNumField.val()===!('waiting input')){
+
+              if((creditNumBoarderRed===true)||($creditNumField.val()==='')||$creditNumField.val()===!('waiting input')||($creditNumField.val()==='waiting input' && $creditNumField.is(':visible'))){
               alert('review credit num field');
           }
     
-           if((zipFieldBoarderRed===true)||($zipField.val()==='')||$zipField.val()===!('waiting input')){
+           if((zipFieldBoarderRed===true)||($zipField.val()==='')||$zipField.val()===!('waiting input')||($zipField.val()==='waiting input' && $zipField.is(':visible'))){
               alert('review zip field');
           }
     
-            if((cvvFieldBoarderRed===true)||($cvvField.val()==='')||$cvvField.val()===!('waiting input')){
+            if((cvvFieldBoarderRed===true)||($cvvField.val()==='')||$cvvField.val()===!('waiting input')||($cvvField.val()==='waiting input' && $cvvField.is(':visible'))){
               alert('review cvv field');
           }
-        
-    }
     
     
-if(creditCardSelected===true){
-            
-            if ($($incorrectNameMessage).is(':visible')){ 
 
-            event.preventDefault();
-            alert('review name field');
-            
-        }
-        
-    
-        if ($($incorrectEmailMessage).is(':visible')){ 
-
-            event.preventDefault();
-            alert('review email field');
-            
-        }
-
-        if (totalCost===0){ 
-
-            event.preventDefault();
-            alert('select atleast 1 activity');
-            $incorrectCheckboxSelected.show();
-            
-        }
-        
-
-    
-        if($emailField.val()===''){
-            event.preventDefault();
-                alert('insert an email');
-            }
-
-            
-            
-    }
-        
-    
-//            if($creditNumField.val()==='waiting input') {
-//                alert('review credit num field');
-//            }
-//    
-//            if($zipField.val()==='waiting input'){
-//                alert('review zip num field');
-//            }
-//    
-//            if($cvvField.val()==='waiting input'){
-//                alert('review cvv num field');
-//            }
-//            
     
 
        
-    //
+    
          else{
             event.preventDefault();
 
             console.log('test');
         }
-            //seems ok. but need to work on paypal/bitcoin condition.
-        
-   //  });
-    
+            
 
     
   });  
  
-//Go through all different scenarios that we dont want. If any of them is true then show error div message.
-/*
-$('.container').on('click', 'button', function(event) {
-if($incorrectNameMessage.is(":visible")||$incorrectEmailMessage.is(":visible")||$emailField.val()===''||totalCost===0||$incorrectCreditCardMessage.is(":visible")||$zipField.val()===''||$cvvField.val()==='' ){
-    
-    event.preventDefault();
-   
-    $noBlankFieldsDiv.show();
-
-}
-
-//TODO: consider using delay()
-
-    else{
-        //show that the form was valid
-        $sucessfulFormMessage.show();
-        //delay so that the user can read the successfull message, then trigger the event
-        setTimeout(location.reload.bind(location), 3000);
-        (!event.preventDefault());
-    }
-    
-
-    
-});
-*/
-
-/*
-NOTE:
-
-On submission, the form provides an error indication or message for each field that requires validation:
-Name field
-Email field
-“Register for Activities” checkboxes
-Credit Card number, Zip code, and CVV, only if the credit card payment method is selected.
-*/
 
 
