@@ -747,6 +747,10 @@ let ok = false;
 //register button is clicked
 $('.container').on('click', 'button', function(event) {
 
+    
+
+
+    
     event.preventDefault();
     
     //Loop thorugh every text field
@@ -762,79 +766,28 @@ $('.container').on('click', 'button', function(event) {
         $incorrectCreditCardMessage.hide();
         $inputCreditCardMessage.hide();
          
-         creditNumBoarderRed=false;
-         zipFieldBoarderRed=false;
-         cvvFieldBoarderRed=false;
+//         creditNumBoarderRed=false;
+//         zipFieldBoarderRed=false;
+//         cvvFieldBoarderRed=false;
         
         event.preventDefault();
         
         ok=false;
         
         
-        //todo: maybe: och alla andra är korrekta??
-        //TODO: Ok so if we go to paypal/bitcoin and eveything is fine and we submit but then we go back to creditcard and we unselect checkbox and we submit and text is upadted and IT SHOULD NOT.
+
         
     }
     
 
-    
-
-    
-       if ($($incorrectNameMessage).is(':visible')){ 
-
-            event.preventDefault();
-            alert('review name field');
-        
-           ok=false;
-            
-        }
-        
-    
-        if ($($incorrectEmailMessage).is(':visible')){ 
-
-            event.preventDefault();
-            alert('review email field');
-            
-            ok=false;
-            
-        }
-
-        if (totalCost===0){ 
-
-            event.preventDefault();
-            alert('select atleast 1 activity');
-            $incorrectCheckboxSelected.show();
-            
-            ok=false;
-            
-        }
-        
-        if($nameField.val()===''){
-            event.preventDefault();
-                alert('insert an name');
-            
-            ok=false;
-            }
-    
-        if($emailField.val()===''){
-            event.preventDefault();
-                alert('insert an email');
-            
-            ok=false;
-            }
-    
-    
-        
-            
-
-              if((creditNumBoarderRed===true)||($creditNumField.val()==='')||($creditNumField.val()==='waiting input' && $creditNumField.is(':visible'))){
+             if((creditNumBoarderRed===true)||($creditNumField.val()==='')||($creditNumField.val()==='waiting input' && $creditNumField.is(':visible'))){
               alert('review credit num field');
                   ok=false;
           }
     
-           if((zipFieldBoarderRed===true)||($zipField.val()==='')||($zipField.val()==='waiting input' && $zipField.is(':visible'))){
+          if((zipFieldBoarderRed===true)||($zipField.val()==='')||($zipField.val()==='waiting input' && $zipField.is(':visible'))){
               alert('review zip field');
-               
+                 
                ok=false;
           }
     
@@ -848,18 +801,80 @@ $('.container').on('click', 'button', function(event) {
           }
     
     
+    
+    
+    
+
+    
+    else if ($($incorrectNameMessage).is(':visible')||$nameField.val()===''){ 
+
+            event.preventDefault();
+            alert('review name field');
+        
+           ok=false;
+            
+        }
+        
+    
+       else if ($($incorrectEmailMessage).is(':visible')||$emailField.val()===''){ 
+
+            event.preventDefault();
+            alert('review email field');
+            
+            ok=false;
+            
+        }
+
+      else  if (totalCost===0){ 
+
+            event.preventDefault();
+            alert('select atleast 1 activity');
+            $incorrectCheckboxSelected.show();
+            
+            ok=false;
+            
+        }
+
+//        else if((creditNumBoarderRed===true)||($creditNumField.val()==='')||($creditNumField.val()==='waiting input' && $creditNumField.is(':visible'))){
+//              alert('review credit num field');
+//                  ok=false;
+//          }
+//    
+//          else if((zipFieldBoarderRed===true)||($zipField.val()==='')||($zipField.val()==='waiting input' && $zipField.is(':visible'))){
+//              alert('review zip field');
+//                 
+//               ok=false;
+//          }
+//    
+//           else if((cvvFieldBoarderRed===true)||($cvvField.val()==='')||($cvvField.val()==='waiting input' && $cvvField.is(':visible'))     
+//              
+//              
+//              ){
+//              alert('review cvv field');
+//                
+//                ok=false;
+//          }
+    
+    
 
     //TODO: se över när man går FRÅN bitcoin/paypal och sen tillbaka.
-
+    //is hidden verkar ej funka. BYT lösning helt.
        
     
-         else{
-            event.preventDefault();
-             
-             ok=true;
-            console.log('test');
-        }
+//         else if(creditCardDiv.is(':hidden')  && !($($incorrectNameMessage).is(':visible')||$nameField.val()==='')   &&   !($($incorrectEmailMessage).is(':visible')||$emailField.val()==='')   &&   !totalCost===0         ){
+//                 
+//                 
+//            event.preventDefault();
+//             
+//             ok=true;
+//            console.log('test');
+//        }
+    
+
             
+    else{
+         console.log('test');
+    }
 
     
   });  
