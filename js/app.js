@@ -783,7 +783,7 @@ $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(funct
     
                                 //TODO  check if div is visible maybe   
     //if(  ($(this).val()==='' ) ||   $(this).pre    ){
-    if(  ($(this).val()==='' ) ){
+    if(  ($(this).val()==='' ) ) {
     alert('Please review field: '+  $(this).prev().text());
         //fieldisOk = false;
     }
@@ -796,8 +796,13 @@ $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(funct
     //after loop we check if global variable totalCost ===0. If so then alert.
         if(totalCost ===0){
         alert('Activities: select at least 1 checkbox');
+            $incorrectCheckboxSelected.show();
         }
-            
+         
+        if(totalCost>0){
+            $incorrectCheckboxSelected.hide();
+
+        }    
             //now lets check if all requriements for an OK form are met
 //            if(  (totalCost > 0) && (fieldisOk===true)  ){
 //                alert ('form ok');
@@ -828,9 +833,14 @@ $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(funct
        }); //end of loop for !(creditcard)/non credit card fields 
        
         //after loop we check if global variable totalCost ===0. If so then alert.
-        if(totalCost ===0){
+        if(totalCost === 0){
         alert('Activities: select at least 1 checkbox');
+            $incorrectCheckboxSelected.show();
         }
+        if(totalCost > 0){
+            $incorrectCheckboxSelected.hide();
+
+        }    
        
    } //end of else if !creditCardDiv.is(:visible)
     
