@@ -767,23 +767,15 @@ $('.container').on('click', 'button', function(event) {
   //check if credit fields are visible
         if(creditCardDiv.is(':visible') ){
     //if visible->
-    //-> Loop thorugh all inputs to see if any illegal ''
-//$( "input" ).each(function() {
-
             
+    //-> Loop thorugh all inputs to see if any illegal '' or if border-color is red:
 
 $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(function() {
+        
     
-
-    //border-color verkar fucka upp lite. Sätt === true testa. Testa lite andra lösnignar
-   // if(  ($(this).val()==='' )||( (($(this).css({"border-color": "red" }).is(':visible'))) )){
-        //if($(this).val()===''  ){
-    
-    //$creditNumField.prev().text().
-    
-                                //TODO  check if div is visible maybe   
-    //if(  ($(this).val()==='' ) ||   $(this).pre    ){
-    if(  ($(this).val()==='' ) ) {
+    //if(  ($(this).val()==='' ) //works
+    //TODO: Check border color //SEEMS to work.
+    if( (  ($(this).val()==='' ) )  ||  $(this).css("border-color")==="rgb(255, 0, 0)"  ){
     alert('Please review field: '+  $(this).prev().text());
         //fieldisOk = false;
     }
@@ -815,12 +807,11 @@ $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(funct
     //if bitcoin or paypal is selected:
     if(!(creditCardDiv.is(':visible')) ) {
        
-       //alert('testing !(credit visible)'); //ok
+     //-> Loop thorugh inputs to see if any illegal '' or if border-color is red:
        $( [$nameField, $emailField] ).each(function() {
           
            
-         //border-color verkar fucka upp lite. Sätt === true testa.
-             if(  ($(this).val()==='' )||( $(this).css({"border-color": "red" })===true) ){
+             if(  ($(this).val()==='' )  ||  $(this).css("border-color")==="rgb(255, 0, 0)" ){
 
                 alert('Please review field: '+  $(this).prev().text());
         
