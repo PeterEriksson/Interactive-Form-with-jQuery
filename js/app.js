@@ -742,7 +742,8 @@ $("#credit-card").append($sucessfulFormMessage);
 $sucessfulFormMessage.hide();
 
 
-let ok = false;
+
+//let fieldisOk = false;
 
 //register button is clicked
 $('.container').on('click', 'button', function(event) {
@@ -756,26 +757,36 @@ $('.container').on('click', 'button', function(event) {
     //-> Loop thorugh all inputs to see if any illegal ''
 //$( "input" ).each(function() {
 
+            
+
 $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(function() {
     
 
     //border-color verkar fucka upp lite. Sätt === true testa.
-//    if($(this).val()==='' || $(this).css({"border-color": "red" }) ){
-        if($(this).val()===''  ){
+    if(  ($(this).val()==='' )||( (($(this).css({"border-color": "red" })===true)) )){
+        //if($(this).val()===''  ){
     alert('Please review field: '+  $(this).prev().text());
-        
-        //alert('testing blanks');
-        
-        
-       // console.log('hi test');
-}
-}); //end of creditcard div loop
+        //fieldisOk = false;
+    }
+
+//        if(  (!($(this).val()==='') ) && (!( $(this).css({"border-color": "red" })===true))  ) {
+//            fieldisOk=true;
+//        }
+
+}); //end of creditcardDiv fields each function loop
     //after loop we check if global variable totalCost ===0. If so then alert.
         if(totalCost ===0){
         alert('Activities: select at least 1 checkbox');
         }
             
-
+            //now lets check if all requriements for an OK form are met
+//            if(  (totalCost > 0) && (fieldisOk===true)  ){
+//                alert ('form ok');
+//            }
+            
+//TODO: SOMETHING wrong with border color red condition. Break down and test. 
+            
+            
     } //end of if (creditCardDiv is visible)
     
     //if bitcoin or paypal is selected:
@@ -783,10 +794,12 @@ $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(funct
        
        //alert('testing !(credit visible)'); //ok
        $( [$nameField, $emailField] ).each(function() {
-           //if($(this).val()==='' ){ //old version
-            if($(this).val()==='' || $(this).css({"border-color": "red" }) ){ //eller fielden har en röd text ovanör. //OK.
+          
+           
+         //border-color verkar fucka upp lite. Sätt === true testa.
+             if(  ($(this).val()==='' )||( $(this).css({"border-color": "red" })===true) ){
 
-    alert('Please review field: '+  $(this).prev().text());
+                alert('Please review field: '+  $(this).prev().text());
         
         //alert('testing blanks');
         
