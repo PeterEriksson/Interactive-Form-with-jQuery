@@ -746,138 +746,66 @@ let ok = false;
 
 //register button is clicked
 $('.container').on('click', 'button', function(event) {
-
     
-
-
+ event.preventDefault();
     
-    event.preventDefault();
     
-    //Loop thorugh every text field
-    //"form input"
-  //  $([$incorrectNameMessage, $incorrectEmailMessage, $incorrectCheckboxSelected, $incorrectCreditCardMessage]).each(function() {
-    //if($(creditCardDiv).is(':visible'))
-    
-    if($(creditCardDiv).is(':hidden')){
-        $creditNumField.val('waiting input');
-        $zipField.val('waiting input');
-        $cvvField.val('waiting input');
-        
-        $incorrectCreditCardMessage.hide();
-        $inputCreditCardMessage.hide();
-         
-//         creditNumBoarderRed=false;
-//         zipFieldBoarderRed=false;
-//         cvvFieldBoarderRed=false;
-        
-        event.preventDefault();
-        
-        ok=false;
-        
-        
+  //check if credit fields are visible
+        if(creditCardDiv.is(':visible') ){
+    //if visible->
+    //-> Loop thorugh all inputs to see if any illegal ''
+//$( "input" ).each(function() {
 
-        
-    }
+$( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(function() {
     
 
-             if((creditNumBoarderRed===true)||($creditNumField.val()==='')||($creditNumField.val()==='waiting input' && $creditNumField.is(':visible'))){
-              alert('review credit num field');
-                  ok=false;
-          }
-    
-          if((zipFieldBoarderRed===true)||($zipField.val()==='')||($zipField.val()==='waiting input' && $zipField.is(':visible'))){
-              alert('review zip field');
-                 
-               ok=false;
-          }
-    
-            if((cvvFieldBoarderRed===true)||($cvvField.val()==='')||($cvvField.val()==='waiting input' && $cvvField.is(':visible'))     
-              
-              
-              ){
-              alert('review cvv field');
-                
-                ok=false;
-          }
-    
-    
-    
-    
-    
-
-    
-    else if ($($incorrectNameMessage).is(':visible')||$nameField.val()===''){ 
-
-            event.preventDefault();
-            alert('review name field');
+    //border-color verkar fucka upp lite. Sätt === true testa.
+//    if($(this).val()==='' || $(this).css({"border-color": "red" }) ){
+        if($(this).val()===''  ){
+    alert('Please review field: '+  $(this).prev().text());
         
-           ok=false;
-            
+        //alert('testing blanks');
+        
+        
+       // console.log('hi test');
+}
+}); //end of creditcard div loop
+    //after loop we check if global variable totalCost ===0. If so then alert.
+        if(totalCost ===0){
+        alert('Activities: select at least 1 checkbox');
         }
-        
+            
+
+    } //end of if (creditCardDiv is visible)
     
-       else if ($($incorrectEmailMessage).is(':visible')||$emailField.val()===''){ 
-
-            event.preventDefault();
-            alert('review email field');
-            
-            ok=false;
-            
-        }
-
-      else  if (totalCost===0){ 
-
-            event.preventDefault();
-            alert('select atleast 1 activity');
-            $incorrectCheckboxSelected.show();
-            
-            ok=false;
-            
-        }
-
-//        else if((creditNumBoarderRed===true)||($creditNumField.val()==='')||($creditNumField.val()==='waiting input' && $creditNumField.is(':visible'))){
-//              alert('review credit num field');
-//                  ok=false;
-//          }
-//    
-//          else if((zipFieldBoarderRed===true)||($zipField.val()==='')||($zipField.val()==='waiting input' && $zipField.is(':visible'))){
-//              alert('review zip field');
-//                 
-//               ok=false;
-//          }
-//    
-//           else if((cvvFieldBoarderRed===true)||($cvvField.val()==='')||($cvvField.val()==='waiting input' && $cvvField.is(':visible'))     
-//              
-//              
-//              ){
-//              alert('review cvv field');
-//                
-//                ok=false;
-//          }
-    
-    
-
-    //TODO: se över när man går FRÅN bitcoin/paypal och sen tillbaka.
-    //is hidden verkar ej funka. BYT lösning helt.
+    //if bitcoin or paypal is selected:
+    if(!(creditCardDiv.is(':visible')) ) {
        
+       //alert('testing !(credit visible)'); //ok
+       $( [$nameField, $emailField] ).each(function() {
+           //if($(this).val()==='' ){ //old version
+            if($(this).val()==='' || $(this).css({"border-color": "red" }) ){ //eller fielden har en röd text ovanör. //OK.
+
+    alert('Please review field: '+  $(this).prev().text());
+        
+        //alert('testing blanks');
+        
+        
+       // console.log('hi test');
+}
+           
+       }); //end of loop for !(creditcard)/non credit card fields 
+       
+        //after loop we check if global variable totalCost ===0. If so then alert.
+        if(totalCost ===0){
+        alert('Activities: select at least 1 checkbox');
+        }
+       
+   } //end of else if !creditCardDiv.is(:visible)
     
-//         else if(creditCardDiv.is(':hidden')  && !($($incorrectNameMessage).is(':visible')||$nameField.val()==='')   &&   !($($incorrectEmailMessage).is(':visible')||$emailField.val()==='')   &&   !totalCost===0         ){
-//                 
-//                 
-//            event.preventDefault();
-//             
-//             ok=true;
-//            console.log('test');
-//        }
+    
+    
     
 
-            
-    else{
-         console.log('test');
-    }
-
     
-  });  
- 
-
-
+}); //END of button click 
