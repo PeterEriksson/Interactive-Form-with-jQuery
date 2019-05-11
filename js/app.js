@@ -611,21 +611,33 @@ $incorrectCheckboxSelected.hide();
 Program at least one of your error messages so that more information is provided depending on the error. For example, if the user hasn’t entered a credit card number and the field is completely blank, the error message reads “Please enter a credit card number.” If the field isn’t empty but contains only 10 numbers, the error message reads “Please enter a number that is between 13 and 16 digits long.”
 */
 
-const $inputCreditCardMessage = $('<div id="inputCreditCard"> Enter a credit card number. </div>'); 
+const $inputCreditCardMessage = $('<div id="inputCreditCard"> Please enter a credit card number. </div>'); 
 
-const $incorrectCreditCardMessage = $('<div id="incorrectCreditCard">Enter a card number between 13 and 16 digits long, zip 5 digits, cvv 3 digits </div>'); 
+const $incorrectCreditCardMessage = $('<div id="incorrectCreditCard">CardNr shall be: 13-16 digits </div>'); 
+
+const $incorrectZipMessage = $('<div id="incorrectZipMessage">Enter a 5 digit zip </div>'); 
+const $incorrectCvvMessage = $('<div id="incorrectCvvMessage">Enter a 3 digit cvv </div>'); 
+
+$incorrectZipMessage.css({color: 'red'});
+$incorrectCvvMessage.css({color: 'red'});
 
 $inputCreditCardMessage.css({color: 'red'});
 $incorrectCreditCardMessage.css({color: 'red'});
 
-$("#credit-card").prepend($inputCreditCardMessage);
+//$("#credit-card").prepend($inputCreditCardMessage);
+$("label[for='cc-num']").append($inputCreditCardMessage);
 $inputCreditCardMessage.hide();
 
-$("#credit-card").prepend($incorrectCreditCardMessage);
+//$("#credit-card").prepend($incorrectCreditCardMessage);
+$("label[for='cc-num']").append($incorrectCreditCardMessage);
 $incorrectCreditCardMessage.hide();
+
+$("label[for='zip']").append($incorrectZipMessage);
+$incorrectZipMessage.hide();
+
+$("label[for='cvv']").append($incorrectCvvMessage);
+$incorrectCvvMessage.hide();
     
-//$("label:contains('Card Number:')").prepend($inputCreditCardMessage);
-//$inputCreditCardMessage.show();
 
 const creditCardRegex = /^\d{13,16}$/;
 
@@ -696,13 +708,13 @@ $($cvvField).blur(function() {
     if(cvvRegex.test(VALcvv)){
 
         $cvvField.css({"border-color": '#c1deeb' });
-        $incorrectCreditCardMessage.hide();
+        $incorrectCvvMessage.hide();
         cvvFieldBoarderRed=false;
         
     }
     else {
         $cvvField.css({"border-color": "red" });
-        $incorrectCreditCardMessage.show(); 
+        $incorrectCvvMessage.show(); 
         cvvFieldBoarderRed=true;
     }
 });
@@ -714,14 +726,15 @@ $($zipField).blur(function() {
     if(zipRegex.test(VALzip)){
 
         $zipField.css({"border-color": '#c1deeb' });
-        $incorrectCreditCardMessage.hide();
+        $incorrectZipMessage.hide();
         zipFieldBoarderRed = false;
         
     }
     else {
         $zipField.css({"border-color": "red" });
-        $incorrectCreditCardMessage.show(); 
+        $incorrectZipMessage.show(); 
         zipFieldBoarderRed = true;
+        
     }
 });
 
@@ -762,9 +775,15 @@ $('.container').on('click', 'button', function(event) {
 $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(function() {
     
 
-    //border-color verkar fucka upp lite. Sätt === true testa.
-    if(  ($(this).val()==='' )||( (($(this).css({"border-color": "red" })===true)) )){
+    //border-color verkar fucka upp lite. Sätt === true testa. Testa lite andra lösnignar
+   // if(  ($(this).val()==='' )||( (($(this).css({"border-color": "red" }).is(':visible'))) )){
         //if($(this).val()===''  ){
+    
+    //$creditNumField.prev().text().
+    
+                                //TODO  check if div is visible maybe   
+    //if(  ($(this).val()==='' ) ||   $(this).pre    ){
+    if(  ($(this).val()==='' ) ){
     alert('Please review field: '+  $(this).prev().text());
         //fieldisOk = false;
     }
@@ -784,7 +803,6 @@ $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(funct
 //                alert ('form ok');
 //            }
             
-//TODO: SOMETHING wrong with border color red condition. Break down and test. 
             
             
     } //end of if (creditCardDiv is visible)
