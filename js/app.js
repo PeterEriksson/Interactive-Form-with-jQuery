@@ -769,81 +769,31 @@ $('.container').on('click', 'button', function(event) {
     //-> Loop thorugh all inputs to see if any illegal '' or if border-color is red:
     $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(function() {
         
+        if( (  ($(this).val()==='' ) )  ||  $(this).css("border-color")==="rgb(255, 0, 0)"  )
+        {
+                alert('Please review field: '+  $(this).prev().text());
         
-        
-                if(totalCost ===0){
-        //alert('Activities: select at least 1 checkbox');
-            $incorrectCheckboxSelected.show();
-                $sucessfulFormMessage.hide();
- 
-          }
-         
-          if(totalCost>0){
-            $incorrectCheckboxSelected.hide();
-              $sucessfulFormMessage.hide();
+            } 
 
 
-          } 
-
-        if(   ( !($(this).val()==='') )   &&  ( !($(this).css("border-color")==="rgb(255, 0, 0)" ))      &&  (totalCost > 0)          )    {
+        if(   ( !($(this).val()==='') )   &&  ( !($(this).css("border-color")==="rgb(255, 0, 0)" ))             )    {
             
-                    $sucessfulFormMessage.show();
-            //alert('hej hej');
+                    //$sucessfulFormMessage.show();
+            alert('hej hej')
             
-            //                     setTimeout(function() {
-//                         window.location.reload();
-//                        },    5000); //ok
+
         }
         
-        
+            //TODO:  && verkar CP.
+          //TODO: Ok. TotalCost ifs fuckar upp EN DEL.   Se UPP med vilken ordning jag lägger allt.
+            //TODO: Break down och testa allt. Om nåt funkar ta den ENKLA lösningen ut.
+
     
 
-//
-                    
-                
-//                     setTimeout(function() {
-//                         window.location.reload();
-//                        },    5000); //ok
-    
-            
         
-        
-            if( (  ($(this).val()==='' ) )  ||  $(this).css("border-color")==="rgb(255, 0, 0)"  ){
-                alert('Please review field: '+  $(this).prev().text());
-                 $sucessfulFormMessage.hide();
-        
-            }
-        
-        //if no checkbox selected then alert with $incorrectCheckboxSelected
-        /*    
-        if(totalCost ===0){
-        //alert('Activities: select at least 1 checkbox');
-            $incorrectCheckboxSelected.show();
-                $sucessfulFormMessage.hide();
- 
-          }
-         
-          if(totalCost>0){
-            $incorrectCheckboxSelected.hide();
-              $sucessfulFormMessage.hide();
-
-
-          } 
-    */
-
-    ////TODO: when click and everything is OK then event.preventDefault() but opposite 
 
         
         
-                /* //this was moved up a bit.
-    if( (  ($(this).val()==='' ) )  ||  $(this).css("border-color")==="rgb(255, 0, 0)"  ){
-    alert('Please review field: '+  $(this).prev().text());
-    }
-    */  // WORKED at first I thought but not now.
-    
-
-    //TODO: now lets check if all requriements for an OK form are met
-//if(   ( !($(this).val()==='') )   &&  ( !($(this).css("border-color")==="rgb(255, 0, 0)" ))                  )    {}
 
 
 }); //end of creditcardDiv fields each function loop
