@@ -611,7 +611,7 @@ $incorrectCheckboxSelected.hide();
 Program at least one of your error messages so that more information is provided depending on the error. For example, if the user hasn’t entered a credit card number and the field is completely blank, the error message reads “Please enter a credit card number.” If the field isn’t empty but contains only 10 numbers, the error message reads “Please enter a number that is between 13 and 16 digits long.”
 */
 
-const $inputCreditCardMessage = $('<div id="inputCreditCard"> Please enter a credit card number. </div>'); 
+const $inputCreditCardMessage = $('<div id="inputCreditCard"> Please enter something. </div>'); 
 
 const $incorrectCreditCardMessage = $('<div id="incorrectCreditCard">CardNr shall be: 13-16 digits </div>'); 
 
@@ -748,7 +748,6 @@ $($zipField).blur(function() {
 
 
 
-
 const $sucessfulFormMessage = $('<div id="sucessfulFormMessage">Your form was submitted! </div>'); 
 
 $("#credit-card").append($sucessfulFormMessage);
@@ -756,11 +755,10 @@ $sucessfulFormMessage.hide();
 
 
 
-//let fieldisOk = false;
-
 //register button is clicked
 $('.container').on('click', 'button', function(event) {
     
+    //vi tar  event.preventDefault(); från början.
  event.preventDefault();
     
     
@@ -769,36 +767,94 @@ $('.container').on('click', 'button', function(event) {
     //if visible->
             
     //-> Loop thorugh all inputs to see if any illegal '' or if border-color is red:
+    $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(function() {
+        
+        
+        
+                if(totalCost ===0){
+        //alert('Activities: select at least 1 checkbox');
+            $incorrectCheckboxSelected.show();
+                $sucessfulFormMessage.hide();
+ 
+          }
+         
+          if(totalCost>0){
+            $incorrectCheckboxSelected.hide();
+              $sucessfulFormMessage.hide();
 
-$( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(function() {
+
+          } 
+
+        if(   ( !($(this).val()==='') )   &&  ( !($(this).css("border-color")==="rgb(255, 0, 0)" ))      &&  (totalCost > 0)          )    {
+            
+                    $sucessfulFormMessage.show();
+            //alert('hej hej');
+            
+            //                     setTimeout(function() {
+//                         window.location.reload();
+//                        },    5000); //ok
+        }
+        
         
     
-    //if(  ($(this).val()==='' ) //works
-    //TODO: Check border color //SEEMS to work.
+
+//
+                    
+                
+//                     setTimeout(function() {
+//                         window.location.reload();
+//                        },    5000); //ok
+    
+            
+        
+        
+            if( (  ($(this).val()==='' ) )  ||  $(this).css("border-color")==="rgb(255, 0, 0)"  ){
+                alert('Please review field: '+  $(this).prev().text());
+                 $sucessfulFormMessage.hide();
+        
+            }
+        
+        //if no checkbox selected then alert with $incorrectCheckboxSelected
+        /*    
+        if(totalCost ===0){
+        //alert('Activities: select at least 1 checkbox');
+            $incorrectCheckboxSelected.show();
+                $sucessfulFormMessage.hide();
+ 
+          }
+         
+          if(totalCost>0){
+            $incorrectCheckboxSelected.hide();
+              $sucessfulFormMessage.hide();
+
+
+          } 
+    */
+
+    ////TODO: when click and everything is OK then event.preventDefault() but opposite 
+
+        
+        
+                /* //this was moved up a bit.
     if( (  ($(this).val()==='' ) )  ||  $(this).css("border-color")==="rgb(255, 0, 0)"  ){
     alert('Please review field: '+  $(this).prev().text());
-        //fieldisOk = false;
     }
+    */  // WORKED at first I thought but not now.
+    
 
-//        if(  (!($(this).val()==='') ) && (!( $(this).css({"border-color": "red" })===true))  ) {
-//            fieldisOk=true;
-//        }
+    //TODO: now lets check if all requriements for an OK form are met
+//if(   ( !($(this).val()==='') )   &&  ( !($(this).css("border-color")==="rgb(255, 0, 0)" ))                  )    {}
+
 
 }); //end of creditcardDiv fields each function loop
-    //after loop we check if global variable totalCost ===0. If so then alert.
-        if(totalCost ===0){
-        alert('Activities: select at least 1 checkbox');
-            $incorrectCheckboxSelected.show();
-        }
-         
-        if(totalCost>0){
-            $incorrectCheckboxSelected.hide();
+            
 
-        }    
-            //now lets check if all requriements for an OK form are met
-//            if(  (totalCost > 0) && (fieldisOk===true)  ){
-//                alert ('form ok');
-//            }
+
+    
+    //TODO: insert same code for !(creditCardDiv.is(':visible')
+    
+    //TODO: insert event.preventDefault(); at appropriate places.
+
             
             
             
@@ -815,10 +871,7 @@ $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(funct
 
                 alert('Please review field: '+  $(this).prev().text());
         
-        //alert('testing blanks');
-        
-        
-       // console.log('hi test');
+
 }
            
        }); //end of loop for !(creditcard)/non credit card fields 
