@@ -766,46 +766,30 @@ $('.container').on('click', 'button', function(event) {
         if(creditCardDiv.is(':visible') ){
     //if visible->
             
-    //-> Loop thorugh all inputs to see if any illegal '' or if border-color is red:
-    $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(function() {
-        
-        if( (  ($(this).val()==='' ) )  ||  $(this).css("border-color")==="rgb(255, 0, 0)"  )
-        {
+     //-> Loop thorugh inputs to see if any illegal '' or if border-color is red:
+       $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(function() {
+          
+           
+             if(  ($(this).val()==='' )  ||  $(this).css("border-color")==="rgb(255, 0, 0)" ){
+
                 alert('Please review field: '+  $(this).prev().text());
         
-            } 
 
-
-        if(   ( !($(this).val()==='') )   &&  ( !($(this).css("border-color")==="rgb(255, 0, 0)" ))             )    {
-            
-                    //$sucessfulFormMessage.show();
-            alert('hej hej')
-            
-
+}
+      
+           //TODO: var förs. funkar ok nu men måste kolla när allt stämmer och vad som ska hända då. men får inte fucka upp de igen.
+           
+       }); //end of loop for credit card fields 
+       
+        //after loop we check if global variable totalCost ===0. If so then alert.
+        if(totalCost === 0){
+        alert('Activities: select at least 1 checkbox');
+            $incorrectCheckboxSelected.show();
         }
-        
-            //TODO:  && verkar CP.
-          //TODO: Ok. TotalCost ifs fuckar upp EN DEL.   Se UPP med vilken ordning jag lägger allt.
-            //TODO: Break down och testa allt. Om nåt funkar ta den ENKLA lösningen ut.
+        if(totalCost > 0){
+            $incorrectCheckboxSelected.hide();
 
-    
-
-        
-
-        
-        
-
-
-}); //end of creditcardDiv fields each function loop
-            
-
-
-    
-    //TODO: insert same code for !(creditCardDiv.is(':visible')
-    
-    //TODO: insert event.preventDefault(); at appropriate places.
-
-            
+        } 
             
             
     } //end of if (creditCardDiv is visible)
