@@ -762,7 +762,7 @@ $('.container').on('click', 'button', function(event) {
  event.preventDefault();
     
     
-    //TODO: Kanske ska lägga if totalCost HÄR. Dvs direkt efter knapptryck.
+    //check directly if total cost is 0 and alert user
             if(totalCost === 0){
         alert('Activities: select at least 1 checkbox');
             //$incorrectCheckboxSelected.show();
@@ -819,31 +819,16 @@ $('.container').on('click', 'button', function(event) {
        }); //end of loop for credit card fields 
        
             
-        //after loop we check if global variable totalCost ===0. If so then alert.
-//        if(totalCost === 0){
-//        alert('Activities: select at least 1 checkbox');
-//            $incorrectCheckboxSelected.show();
-//        }
-            
-        /*
-        }
-        if(totalCost > 0){
-            $incorrectCheckboxSelected.hide();
 
-        } 
-         */
-
-            
-          //OM inget har uppnåts så vill vi gå vidare...hur  
        
             
             
-    } //end of if (creditCardDiv is visible)
+    } //end of if (creditCardDiv is visible) && (totalCost > 0)
 
 
                    
     //if bitcoin or paypal is selected:
-    if(!(creditCardDiv.is(':visible')) ) {
+    if(!(creditCardDiv.is(':visible'))  && (totalCost > 0)  ) {
        
      //-> Loop thorugh inputs to see if any illegal '' or if border-color is red:
        $( [$nameField, $emailField] ).each(function() {
@@ -856,19 +841,35 @@ $('.container').on('click', 'button', function(event) {
 
                 }
            
+           //--------------insert here
+           
+        //If all fields for bitcoin/paypal are OK -> show OK message and refresh page 
+        if(  (   (!($($nameField).val()==='' ) ) && !($($nameField).css("border-color")==="rgb(255, 0, 0)" )  ) && ( !($($emailField).val()==='' )   &&  !($($emailField).css("border-color")==="rgb(255, 0, 0)" )  )    ){
+            
+             //console.log('hello');
+            alert('your form has been submitted');
+            //Refresh page:
+            //https://stackoverflow.com/questions/33778384/how-to-refresh-a-page-after-some-seconds-with-jquery
+            setTimeout(function() {
+                window.location.reload();
+                }, 5000);    //OK
+                  
+        }
+
+
+
+
+           //--------------end insert here
+           
+           
+           
+           
+           
        }); //end of loop for !(creditcard)/non credit card fields 
        
-        //after loop we check if global variable totalCost ===0. If so then alert.
-        if(totalCost === 0){
-        alert('Activities: select at least 1 checkbox');
-            $incorrectCheckboxSelected.show();
-        }
-        if(totalCost > 0){
-            $incorrectCheckboxSelected.hide();
-
-        }    
+   
        
-   } //end of else if !creditCardDiv.is(:visible)
+   } //end of if !(creditCardDiv.is(':visible') && (totalCost > 0) )
     
     
     
