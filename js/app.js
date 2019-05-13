@@ -587,7 +587,7 @@ Note: Error messages or indications should not be visible by default. They shoul
 //create a message to show if no checkboxes are selected
 const $incorrectCheckboxSelected = $('<div id="incorrectCheckboxSelected">Please note: At least one checkbox must be selected </div>'); 
 
-$('.activities').prepend($incorrectCheckboxSelected);
+$('.activities').append($incorrectCheckboxSelected);
 $incorrectCheckboxSelected.css({color: 'red'});
 $incorrectCheckboxSelected.hide();
 
@@ -730,15 +730,18 @@ $($zipField).blur(function() {
 
 
 
-
-
-
-
-
 const $sucessfulFormMessage = $('<div id="sucessfulFormMessage">Your form was submitted! </div>'); 
-
 $("#credit-card").append($sucessfulFormMessage);
+$sucessfulFormMessage.css({color: 'green'});
+$sucessfulFormMessage.css({"font-weight": "Bold"});
 $sucessfulFormMessage.hide();
+
+const $sucessfulFormMessagePayBit = $('<div id="sucessfulFormMessagePayBit">Your form was submitted! </div>'); 
+$('.activities').append($sucessfulFormMessagePayBit);
+$sucessfulFormMessagePayBit.css({color: 'green'});
+$sucessfulFormMessagePayBit.css({"font-weight": "Bold"});
+$sucessfulFormMessagePayBit.hide();
+
 
 
 
@@ -750,16 +753,21 @@ $('.container').on('click', 'button', function(event) {
     
     //check directly if total cost is 0 and alert user
             if(totalCost === 0){
-        alert('Activities: select at least 1 checkbox');
+       
+                //IncorrectMessage has been moved down closer to the bottom of the form (prepend has become appened) 
                 
-        $incorrectCheckboxSelected.slideDown(2000);
-        $incorrectCheckboxSelected.delay(3000)
-        $incorrectCheckboxSelected.slideUp(1000);
+           alert('select atleast one checkbox');     
+            $incorrectCheckboxSelected.slideDown(2000);
+            $incorrectCheckboxSelected.delay(6000)
+            $incorrectCheckboxSelected.slideUp(1000);
         }
+   
+    
     
   //check if credit fields are visible    
-        if(creditCardDiv.is(':visible') && (totalCost > 0) ){
-   
+       // if(creditCardDiv.is(':visible') && (totalCost > 0) ){
+           if(creditCardDiv.is(':visible') ){
+
             
      //-> Loop thorugh inputs to see if any illegal '' or if border-color is red:
        $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(function() {
@@ -768,19 +776,18 @@ $('.container').on('click', 'button', function(event) {
              if(  ($(this).val()==='' )  ||  $(this).css("border-color")==="rgb(255, 0, 0)" ){
 
                 alert('Please review field: '+  $(this).prev().text());
-        
-             }
-
                  
 
+                 
+             }
 
-      
+
 
            
            
     
         //If all fields are OK -> show OK message and refresh page 
-        if(  (   (!($($nameField).val()==='' ) ) && !($($nameField).css("border-color")==="rgb(255, 0, 0)" )  ) && ( !($($emailField).val()==='' )   &&  !($($emailField).css("border-color")==="rgb(255, 0, 0)" )  )  &&  ( !($($creditNumField).val()==='' )   &&  !($($creditNumField).css("border-color")==="rgb(255, 0, 0)" )  )   && ( !($($zipField).val()==='' )   &&  !($($zipField).css("border-color")==="rgb(255, 0, 0)" )  )  && ( !($($cvvField).val()==='' )   &&  !($($cvvField).css("border-color")==="rgb(255, 0, 0)" )  )  ){
+        if(  (   (!($($nameField).val()==='' ) ) && !($($nameField).css("border-color")==="rgb(255, 0, 0)" )  ) && ( !($($emailField).val()==='' )   &&  !($($emailField).css("border-color")==="rgb(255, 0, 0)" )  )  &&  ( !($($creditNumField).val()==='' )   &&  !($($creditNumField).css("border-color")==="rgb(255, 0, 0)" )  )   && ( !($($zipField).val()==='' )   &&  !($($zipField).css("border-color")==="rgb(255, 0, 0)" )  )  && ( !($($cvvField).val()==='' )   &&  !($($cvvField).css("border-color")==="rgb(255, 0, 0)" )  ) &&  (totalCost > 0)   ){
             
              //console.log('hello');
             $sucessfulFormMessage.show();
@@ -803,14 +810,14 @@ $('.container').on('click', 'button', function(event) {
        
             
             
-    } //end of if (creditCardDiv is visible) && (totalCost > 0)
-
+    } //end of if (creditCardDiv is visible) )
+            //OK.
 
                    
-    //if paypal is selected:
-    if((paypalDiv.is(':visible'))  && (totalCost > 0)  ) {
+    //if paypal is selected: 
+    if((paypalDiv.is(':visible'))  ) {
        
-     //-> Loop thorugh inputs to see if any illegal '' or if border-color is red:
+     //-> Loop through inputs to see if any illegal '' or if border-color is red:
        $( [$nameField, $emailField] ).each(function() {
           
            
@@ -823,9 +830,11 @@ $('.container').on('click', 'button', function(event) {
            
            
         //If all fields for paypal are OK -> show OK message and refresh page 
-        if(  (   (!($($nameField).val()==='' ) ) && !($($nameField).css("border-color")==="rgb(255, 0, 0)" )  ) && ( !($($emailField).val()==='' )   &&  !($($emailField).css("border-color")==="rgb(255, 0, 0)" )  )    ){
+        if(  (   (!($($nameField).val()==='' ) ) && !($($nameField).css("border-color")==="rgb(255, 0, 0)" )  )   &&   ( !($($emailField).val()==='' )   &&  !($($emailField).css("border-color")==="rgb(255, 0, 0)" )  )   && (totalCost > 0)  ){
             
-            alert('your form has been submitted');
+            //alert('your form has been submitted');
+            $sucessfulFormMessagePayBit.show();
+            
             //Refresh page:
             //https://stackoverflow.com/questions/33778384/how-to-refresh-a-page-after-some-seconds-with-jquery
             setTimeout(function() {
@@ -846,12 +855,12 @@ $('.container').on('click', 'button', function(event) {
        
    
        
-   } //end of if (paypal.is(':visible') && (totalCost > 0) )
+   } //end of if (paypal.is(':visible') && (totalCost > 0) )   //OK.
     
     
     
         //if bitcoin is selected:
-    if((bitcoinDiv.is(':visible'))  && (totalCost > 0)  ) {
+    if(  (bitcoinDiv.is(':visible'))   ) {
        
      //-> Loop thorugh inputs to see if any illegal '' or if border-color is red:
        $( [$nameField, $emailField] ).each(function() {
@@ -866,10 +875,10 @@ $('.container').on('click', 'button', function(event) {
            
            
         //If all fields for bitcoin are OK -> show OK message and refresh page 
-        if(  (   (!($($nameField).val()==='' ) ) && !($($nameField).css("border-color")==="rgb(255, 0, 0)" )  ) && ( !($($emailField).val()==='' )   &&  !($($emailField).css("border-color")==="rgb(255, 0, 0)" )  )    ){
+        if(   (  (!($($nameField).val()==='' ) ) && !($($nameField).css("border-color")==="rgb(255, 0, 0)" )  )   &&   ( !($($emailField).val()==='' )   &&  !($($emailField).css("border-color")==="rgb(255, 0, 0)" )  )   && (totalCost > 0)   ){
             
-             //console.log('hello');
-            alert('your form has been submitted');
+            //alert('your form has been submitted');
+            $sucessfulFormMessagePayBit.show();
             //Refresh page:
             //https://stackoverflow.com/questions/33778384/how-to-refresh-a-page-after-some-seconds-with-jquery
             setTimeout(function() {
@@ -879,23 +888,13 @@ $('.container').on('click', 'button', function(event) {
         }
 
 
+//Helo
 
-
-           
-           
-           
-           
-           
        }); //end of loop for bitcoin fields 
        
    
        
    } //end of if (bitcoin.is(':visible') && (totalCost > 0) )
-    
-    
-    
-    
-    
     
     
 
