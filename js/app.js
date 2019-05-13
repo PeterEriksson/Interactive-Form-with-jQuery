@@ -772,12 +772,9 @@ $('.container').on('click', 'button', function(event) {
         $incorrectCheckboxSelected.slideUp(1000);
         }
     
-  //check if credit fields are visible
-        //    if(creditCardDiv.is(':visible') ){
-
-        //test temp---
+  //check if credit fields are visible    
         if(creditCardDiv.is(':visible') && (totalCost > 0) ){
-    //if visible->
+   
             
      //-> Loop thorugh inputs to see if any illegal '' or if border-color is red:
        $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(function() {
@@ -796,10 +793,8 @@ $('.container').on('click', 'button', function(event) {
 
            
            
-           
-                   //test temp--------------- test new solu...seems working?
     
-                    //If all fields are OK -> show OK message and refresh page 
+        //If all fields are OK -> show OK message and refresh page 
         if(  (   (!($($nameField).val()==='' ) ) && !($($nameField).css("border-color")==="rgb(255, 0, 0)" )  ) && ( !($($emailField).val()==='' )   &&  !($($emailField).css("border-color")==="rgb(255, 0, 0)" )  )  &&  ( !($($creditNumField).val()==='' )   &&  !($($creditNumField).css("border-color")==="rgb(255, 0, 0)" )  )   && ( !($($zipField).val()==='' )   &&  !($($zipField).css("border-color")==="rgb(255, 0, 0)" )  )  && ( !($($cvvField).val()==='' )   &&  !($($cvvField).css("border-color")==="rgb(255, 0, 0)" )  )  ){
             
              //console.log('hello');
@@ -841,25 +836,22 @@ $('.container').on('click', 'button', function(event) {
 
                 }
            
-           //--------------insert here
            
         //If all fields for paypal are OK -> show OK message and refresh page 
         if(  (   (!($($nameField).val()==='' ) ) && !($($nameField).css("border-color")==="rgb(255, 0, 0)" )  ) && ( !($($emailField).val()==='' )   &&  !($($emailField).css("border-color")==="rgb(255, 0, 0)" )  )    ){
             
-             //console.log('hello');
             alert('your form has been submitted');
             //Refresh page:
             //https://stackoverflow.com/questions/33778384/how-to-refresh-a-page-after-some-seconds-with-jquery
             setTimeout(function() {
                 window.location.reload();
-                }, 5000);    //OK
+                }, 5000);    
                   
         }
 
 
 
 
-           //--------------end insert here
            
            
            
@@ -887,7 +879,6 @@ $('.container').on('click', 'button', function(event) {
 
                 }
            
-           //--------------insert here
            
         //If all fields for bitcoin are OK -> show OK message and refresh page 
         if(  (   (!($($nameField).val()==='' ) ) && !($($nameField).css("border-color")==="rgb(255, 0, 0)" )  ) && ( !($($emailField).val()==='' )   &&  !($($emailField).css("border-color")==="rgb(255, 0, 0)" )  )    ){
@@ -905,7 +896,6 @@ $('.container').on('click', 'button', function(event) {
 
 
 
-           //--------------end insert here
            
            
            
