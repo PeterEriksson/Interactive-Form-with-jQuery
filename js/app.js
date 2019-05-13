@@ -765,7 +765,11 @@ $('.container').on('click', 'button', function(event) {
     //TODO: Kanske ska lägga if totalCost HÄR. Dvs direkt efter knapptryck.
             if(totalCost === 0){
         alert('Activities: select at least 1 checkbox');
-            $incorrectCheckboxSelected.show();
+            //$incorrectCheckboxSelected.show();
+                
+        $incorrectCheckboxSelected.slideDown(2000);
+        $incorrectCheckboxSelected.delay(3000)
+        $incorrectCheckboxSelected.slideUp(1000);
         }
     
   //check if credit fields are visible
@@ -795,16 +799,20 @@ $('.container').on('click', 'button', function(event) {
            
                    //test temp--------------- test new solu...seems working?
     
+                    //If all fields are OK -> show OK message and refresh page 
         if(  (   (!($($nameField).val()==='' ) ) && !($($nameField).css("border-color")==="rgb(255, 0, 0)" )  ) && ( !($($emailField).val()==='' )   &&  !($($emailField).css("border-color")==="rgb(255, 0, 0)" )  )  &&  ( !($($creditNumField).val()==='' )   &&  !($($creditNumField).css("border-color")==="rgb(255, 0, 0)" )  )   && ( !($($zipField).val()==='' )   &&  !($($zipField).css("border-color")==="rgb(255, 0, 0)" )  )  && ( !($($cvvField).val()==='' )   &&  !($($cvvField).css("border-color")==="rgb(255, 0, 0)" )  )  ){
             
-             console.log('hello');
+             //console.log('hello');
             $sucessfulFormMessage.show();
+            //Refresh page:
+            //https://stackoverflow.com/questions/33778384/how-to-refresh-a-page-after-some-seconds-with-jquery
+            setTimeout(function() {
+                window.location.reload();
+                }, 5000);    //OK
                   
         }
      
 
-
-           
            
            
            
