@@ -743,8 +743,22 @@ $sucessfulFormMessagePayBit.css({"font-weight": "Bold"});
 $sucessfulFormMessagePayBit.hide();
 
 
+//--------------------
+/*
+//Submission 2 edits:
+Some minor things fixed. 
 
+When submit-button clicked: If-all-fields-are-ok parentheses has been edited. Now works.
 
+Also another div has been added: sucessfulFormMessage for paypal and bitcoin ($sucessfulFormMessagePayBit).
+It's added at the end of activites, pretty close to the submit-button.
+
+css has been configured for both $sucessfulFormMessage and $sucessfulFormMessagePayBit. They are now green and bold.
+
+$incorrectCheckboxSelected has been moved to the end of .activities (from prepend to append)
+
+*/
+//-----------------------
 //register button is clicked
 $('.container').on('click', 'button', function(event) {
     
