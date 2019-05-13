@@ -67,7 +67,7 @@ const $colorLabel = $('#color').prev();
 $colorLabel.hide();
 
 //option is created
-// Note: selected is declared. Therefore it will be displayed first in the drop-down list.
+// Note to self: selected is declared. Therefore it will be displayed first in the drop-down list.
 //https://stackoverflow.com/questions/3518002/how-can-i-set-the-default-value-for-an-html-select-element
 const $option= $('<option value="selectColor" selected>Please select a T-shirt theme</option>'); 
 
@@ -232,9 +232,7 @@ $flashMessageTimeSlot2.hide();
 //If the user selects a workshop some hide/show events should occur (for some). Also update totalCost when checkbox is selected.
 //https://www.techcoil.com/blog/how-to-use-jquery-to-detect-user-checking-and-unchecking-a-checkbox/
 $($checkboxJsFrameworks).change(function() {
-//    if($($checkboxJsFrameworks).attr('checked', false)){
-//        $($checkboxExpress).attr('disabled', true); 
-//        }
+
     if(($checkboxJsFrameworks).is(':checked')){
         $checkboxExpress.attr('disabled', true);
         
@@ -257,19 +255,15 @@ $($checkboxJsFrameworks).change(function() {
         totalCost -=100;
         $totalCost.text(totalCost);
         
-        //$yourTotalCost.replaceWith(totalCost);
     }
 
 });
 
 
 $($checkboxExpress).change(function() {
-//    if($($checkboxJsFrameworks).attr('checked', false)){
-//        $($checkboxExpress).attr('disabled', true); 
-//        }
+
     if(($checkboxExpress).is(':checked')){
         $checkboxJsFrameworks.attr('disabled', true);
-        //alert($flashMessageTimeSlot.text()+$jsFrameworksLabel.text());
         
         $flashMessageTimeSlot.append($jsFrameworksLabel.text());
         $flashMessageTimeSlot.slideDown(2000);
@@ -558,8 +552,7 @@ $incorrectEmailMessage.css({color: 'red'});
 //Hide $incorrectEmailMessage to begin with
 $incorrectEmailMessage.hide();
 
-//[^@]  ->anything that is not an @ symbol
-// i -> only lower case
+
 
 $($emailField).blur(function(){
     var emailVAL = $(this).val();
@@ -599,11 +592,7 @@ $incorrectCheckboxSelected.css({color: 'red'});
 $incorrectCheckboxSelected.hide();
 
 
-//$($checkboxAll).prepend($incorrectCheckboxSelected);
-//$incorrectCheckboxSelected.show();
 
-
-//$incorrectCheckboxSelected.hide();
 
 
 //Conditional Error Message for credit card (exceeds requirement)
@@ -678,13 +667,12 @@ $($creditNumField).blur(function(){
 
     var creditNumberVall = $(this).val();
     if(creditNumberVall === ''){
-//        
+        
         $inputCreditCardMessage.show(); 
-//    
+   
     }
     else {
-//    console.log('testing if regex is working');
-//    $incorrectCreditCardMessage.css({"border-color": '#c1deeb' });
+
         $inputCreditCardMessage.hide();
         }
     
@@ -742,8 +730,7 @@ $($zipField).blur(function() {
 
 
 
-//$incorrectCheckboxSelected.show();
-//TEST THING
+
 
 
 
@@ -758,14 +745,12 @@ $sucessfulFormMessage.hide();
 //register button is clicked
 $('.container').on('click', 'button', function(event) {
     
-    //vi tar  event.preventDefault(); från början.
  event.preventDefault();
     
     
     //check directly if total cost is 0 and alert user
             if(totalCost === 0){
         alert('Activities: select at least 1 checkbox');
-            //$incorrectCheckboxSelected.show();
                 
         $incorrectCheckboxSelected.slideDown(2000);
         $incorrectCheckboxSelected.delay(3000)
