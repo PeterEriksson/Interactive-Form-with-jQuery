@@ -888,7 +888,6 @@ $('.container').on('click', 'button', function(event) {
         }
 
 
-//Helo
 
        }); //end of loop for bitcoin fields 
        
