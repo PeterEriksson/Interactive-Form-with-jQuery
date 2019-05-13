@@ -759,6 +759,8 @@ $incorrectCheckboxSelected has been moved to the end of .activities (from prepen
 
 */
 //-----------------------
+
+
 //register button is clicked
 $('.container').on('click', 'button', function(event) {
     
