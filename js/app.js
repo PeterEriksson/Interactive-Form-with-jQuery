@@ -762,38 +762,78 @@ $('.container').on('click', 'button', function(event) {
  event.preventDefault();
     
     
+    //TODO: Kanske ska lägga if totalCost HÄR. Dvs direkt efter knapptryck.
+            if(totalCost === 0){
+        alert('Activities: select at least 1 checkbox');
+            $incorrectCheckboxSelected.show();
+        }
+    
   //check if credit fields are visible
-        if(creditCardDiv.is(':visible') ){
+        //    if(creditCardDiv.is(':visible') ){
+
+        //test temp---
+        if(creditCardDiv.is(':visible') && (totalCost > 0) ){
     //if visible->
             
      //-> Loop thorugh inputs to see if any illegal '' or if border-color is red:
        $( [$nameField, $emailField, $creditNumField, $zipField, $cvvField] ).each(function() {
           
-           
+           //if empty field or red field -> alert user
              if(  ($(this).val()==='' )  ||  $(this).css("border-color")==="rgb(255, 0, 0)" ){
 
                 alert('Please review field: '+  $(this).prev().text());
         
+             }
 
-}
+                 
+
+
       
            //TODO: var förs. funkar ok nu men måste kolla när allt stämmer och vad som ska hända då. men får inte fucka upp de igen.
            
+           
+           
+                   //test temp--------------- test new solu...seems working?
+    
+        if(  (   (!($($nameField).val()==='' ) ) && !($($nameField).css("border-color")==="rgb(255, 0, 0)" )  ) && ( !($($emailField).val()==='' )   &&  !($($emailField).css("border-color")==="rgb(255, 0, 0)" )  )  &&  ( !($($creditNumField).val()==='' )   &&  !($($creditNumField).css("border-color")==="rgb(255, 0, 0)" )  )   && ( !($($zipField).val()==='' )   &&  !($($zipField).css("border-color")==="rgb(255, 0, 0)" )  )  && ( !($($cvvField).val()==='' )   &&  !($($cvvField).css("border-color")==="rgb(255, 0, 0)" )  )  ){
+            
+             console.log('hello');
+            $sucessfulFormMessage.show();
+                  
+        }
+     
+
+
+           
+           
+           
+           
        }); //end of loop for credit card fields 
        
+            
         //after loop we check if global variable totalCost ===0. If so then alert.
-        if(totalCost === 0){
-        alert('Activities: select at least 1 checkbox');
-            $incorrectCheckboxSelected.show();
+//        if(totalCost === 0){
+//        alert('Activities: select at least 1 checkbox');
+//            $incorrectCheckboxSelected.show();
+//        }
+            
+        /*
         }
         if(totalCost > 0){
             $incorrectCheckboxSelected.hide();
 
         } 
+         */
+
+            
+          //OM inget har uppnåts så vill vi gå vidare...hur  
+       
             
             
     } //end of if (creditCardDiv is visible)
-    
+
+
+                   
     //if bitcoin or paypal is selected:
     if(!(creditCardDiv.is(':visible')) ) {
        
@@ -806,7 +846,7 @@ $('.container').on('click', 'button', function(event) {
                 alert('Please review field: '+  $(this).prev().text());
         
 
-}
+                }
            
        }); //end of loop for !(creditcard)/non credit card fields 
        
