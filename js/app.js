@@ -793,7 +793,7 @@ $('.container').on('click', 'button', function(event) {
 
 
       
-           //TODO: var förs. funkar ok nu men måste kolla när allt stämmer och vad som ska hända då. men får inte fucka upp de igen.
+
            
            
            
@@ -827,8 +827,8 @@ $('.container').on('click', 'button', function(event) {
 
 
                    
-    //if bitcoin or paypal is selected:
-    if(!(creditCardDiv.is(':visible'))  && (totalCost > 0)  ) {
+    //if paypal is selected:
+    if((paypalDiv.is(':visible'))  && (totalCost > 0)  ) {
        
      //-> Loop thorugh inputs to see if any illegal '' or if border-color is red:
        $( [$nameField, $emailField] ).each(function() {
@@ -843,7 +843,7 @@ $('.container').on('click', 'button', function(event) {
            
            //--------------insert here
            
-        //If all fields for bitcoin/paypal are OK -> show OK message and refresh page 
+        //If all fields for paypal are OK -> show OK message and refresh page 
         if(  (   (!($($nameField).val()==='' ) ) && !($($nameField).css("border-color")==="rgb(255, 0, 0)" )  ) && ( !($($emailField).val()==='' )   &&  !($($emailField).css("border-color")==="rgb(255, 0, 0)" )  )    ){
             
              //console.log('hello');
@@ -865,11 +865,60 @@ $('.container').on('click', 'button', function(event) {
            
            
            
-       }); //end of loop for !(creditcard)/non credit card fields 
+       }); //end of loop for paypal fields 
        
    
        
-   } //end of if !(creditCardDiv.is(':visible') && (totalCost > 0) )
+   } //end of if (paypal.is(':visible') && (totalCost > 0) )
+    
+    
+    
+        //if bitcoin is selected:
+    if((bitcoinDiv.is(':visible'))  && (totalCost > 0)  ) {
+       
+     //-> Loop thorugh inputs to see if any illegal '' or if border-color is red:
+       $( [$nameField, $emailField] ).each(function() {
+          
+           
+             if(  ($(this).val()==='' )  ||  $(this).css("border-color")==="rgb(255, 0, 0)" ){
+
+                alert('Please review field: '+  $(this).prev().text());
+        
+
+                }
+           
+           //--------------insert here
+           
+        //If all fields for bitcoin are OK -> show OK message and refresh page 
+        if(  (   (!($($nameField).val()==='' ) ) && !($($nameField).css("border-color")==="rgb(255, 0, 0)" )  ) && ( !($($emailField).val()==='' )   &&  !($($emailField).css("border-color")==="rgb(255, 0, 0)" )  )    ){
+            
+             //console.log('hello');
+            alert('your form has been submitted');
+            //Refresh page:
+            //https://stackoverflow.com/questions/33778384/how-to-refresh-a-page-after-some-seconds-with-jquery
+            setTimeout(function() {
+                window.location.reload();
+                }, 5000);    //OK
+                  
+        }
+
+
+
+
+           //--------------end insert here
+           
+           
+           
+           
+           
+       }); //end of loop for bitcoin fields 
+       
+   
+       
+   } //end of if (bitcoin.is(':visible') && (totalCost > 0) )
+    
+    
+    
     
     
     
